@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 public abstract class CrudGenerico<T,K>{
 	
 	@PersistenceContext
-	private EntityManager entity;
+	protected EntityManager entity;
 	
 	protected Class<T> classeT;
 	
@@ -27,9 +27,11 @@ public abstract class CrudGenerico<T,K>{
 		ArrayList<T> elements = (ArrayList<T>) entity.createQuery("from " + classeT.getName()).getResultList();
 		return elements;
 	}
+	
 	public void update(T element) {
 		entity.merge(element);
 	}
+	
 	public void remove(T element) {
 		entity.remove(element);		
 	}
