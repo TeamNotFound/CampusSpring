@@ -1,40 +1,27 @@
 package teamNotFound.daoimpl;
 
-import java.util.ArrayList;
 
-import org.hibernate.Session;
+import java.util.List;
 
-import dao.interfaces.CRUDInterface;
-import dao.interfaces.CrudGenerico;
-import model.Account;
-import model.Esame;
-import util.HibernateUtil;
+import org.springframework.stereotype.Repository;
 
+import teamNotFound.dao.CRUDInterface;
+import teamNotFound.dao.CrudGenerico;
+import teamNotFound.model.Esame;
+
+
+@Repository
 public class EsameDao extends CrudGenerico<Esame, Integer> implements CRUDInterface<Esame , Integer>{
 	
 	public EsameDao () {
 		this.classeT=Esame.class;
 	}
 	@SuppressWarnings("unchecked")
-	public ArrayList<Esame> getByIdStudente(int idStudente){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		ArrayList<Esame> esami = new ArrayList<Esame>();
-		
-		try{
-			session.beginTransaction();
-						
-			esami = (ArrayList<Esame>) session.createQuery("from Esame where studente_id= :idStudente").setParameter("idStudente", idStudente).list();
-						
-			session.getTransaction().commit();
-
-			return esami;
-		} catch (Exception e) {
-			System.out.println("Error in getAll()");
-			e.printStackTrace();
-			return null;
-		} finally {
-			session.close();
-		}
+	public List<Esame> getByIdStudente(int idStudente){
+	
+		List<Esame> esami = entity.createQuery("select e from Esame e where e.studente_id= :idStudente")
+				.setParameter("idStudente", idStudente).getResultList();
+		return esami;
 	}
 	
 	

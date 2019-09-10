@@ -1,14 +1,8 @@
 package teamNotFound.daoimpl;
 
-import java.util.ArrayList;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-
-import dao.interfaces.CRUDInterface;
-import dao.interfaces.CrudGenerico;
-import model.Account;
-import model.Prenotazione;
-import util.HibernateUtil;
+import teamNotFound.dao.CRUDInterface;
+import teamNotFound.dao.CrudGenerico;
+import teamNotFound.model.Prenotazione;
 
 public class PrenotazioneDao extends CrudGenerico<Prenotazione, Integer> implements CRUDInterface<Prenotazione , Integer>{
 
@@ -16,44 +10,19 @@ public class PrenotazioneDao extends CrudGenerico<Prenotazione, Integer> impleme
 		this.classeT=Prenotazione.class;
 	}
 
-	public Prenotazione getByIdWithStudente1(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Prenotazione prenotazione;
-		
-		try{
-			session.beginTransaction();
-						
-			prenotazione = (Prenotazione) session.get(Prenotazione.class, id);
-			Hibernate.initialize(prenotazione.getStudente());
-						
-			session.getTransaction().commit();
-
-			return prenotazione;
-		} catch (Exception e) {
-			System.out.println("Error in getAll()");
-			e.printStackTrace();
-			return null;
-		} finally {
-			session.close();
-		}
-	}
 	
 	public Prenotazione getByComposedId(int id_studente, int id_data) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		session.beginTransaction();
-		
-		Prenotazione p = (Prenotazione) session.createQuery("from Prenotazione where studente_id = :studente "
-																+ "and data_appello_id = :data")
+		try {
+				Prenotazione p = (Prenotazione) entity.createQuery("select p from Prenotazione p where p.studente_id = :studente "
+																+ "and p.data_appello_id = :data")
 								.setParameter("studente", id_studente)
 								.setParameter("data", id_data)
-								.list().get(0);
+								.getResultList().get(0);
 		
-		session.getTransaction().commit();
-		session.close();
-		
-		return p;
+				return p;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-
-
 }
