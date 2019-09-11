@@ -1,3 +1,4 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
 <title>Inserimento Appello</title>
@@ -30,23 +31,23 @@
 
 
 
-					<form action="AppelloInserimento" method="post">
+					<form:form action="AppelloInserimento" method="post" modelAttribute="dataAppello">
 
 						<select name="cattedra">
 							<c:forEach items="${cattedre}" var="c">
 								<option value="${c.facolta.id}-${c.corso.id}">${c.facolta.facolta}
-									- ${c.corso.corso}</option>
+									- ${c.corso.corso}
+								</option>
 							</c:forEach>
 						</select>
 
 
 						<h4>Inserimento data appello</h4>
-						<label>Data appello</label><br> <input type="date"
-							name="data" placeholder="Data">
-							
-							<input class="btn btn-success btn-icon-split"
-							type="submit" name="insData"/>
-					</form>
+						<form:label path="dataAppello">Data appello</form:label><br> 
+						<form:input path="dataAppello" type="date"name="data" placeholder="Data" />
+						<input class="btn btn-success btn-icon-split" type="submit" name="insData"/>
+						
+					</form:form>
 
 					<!-- CONTENUTO -->
 
