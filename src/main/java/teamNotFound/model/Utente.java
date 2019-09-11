@@ -3,6 +3,7 @@ package teamNotFound.model;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -14,18 +15,25 @@ public abstract class Utente {
 	private int id;
 	
 	@Column
+	@NotEmpty(message="Inserire nome")
 	private String nome;
 	
+	
 	@Column
+	@NotEmpty(message="Inserire cognome")
 	private String cognome;
 	
 	@Column
+	@NotEmpty(message="Inserire data di nascita")
 	private Date dataNascita;
 	
+	
 	@Column
+	@NotEmpty(message="Inserire luogo di nascita")
 	private String luogoNascita;
 	
 	@Column
+	@NotEmpty(message="Inserire codice fiscale")
 	private String codiceFiscale;
 	
     @Column

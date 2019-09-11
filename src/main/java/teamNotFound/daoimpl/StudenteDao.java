@@ -1,6 +1,6 @@
 package teamNotFound.daoimpl;
 
-import java.util.ArrayList;
+import org.springframework.stereotype.Repository;
 
 import org.springframework.stereotype.Repository;
 

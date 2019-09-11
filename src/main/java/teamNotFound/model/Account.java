@@ -1,6 +1,7 @@
 package teamNotFound.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table (name = "accounts")
@@ -10,9 +11,11 @@ public class Account {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotEmpty(message = "Inserire username")
 	@Column(unique = true)
 	private String username;
 	
+	@NotEmpty(message="Inserire password")
 	@Column
 	private String password;
 	

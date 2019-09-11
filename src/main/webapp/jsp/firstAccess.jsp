@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>  
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -39,28 +39,28 @@
                 <h1 class="h4 text-gray-900 mb-4">Primo Accesso? Registrati come rettore!</h1>
               </div>
 
-				<form class="user" action="FirstAccess" method="post"> 
+				<form:form class="user" action="FirstAccess" method="post" modelAttribute="professore"> 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="nome" id="nome" placeholder="Nome Professore">
+                    <form:input  class="form-control form-control-user" path="nome" id="nome" placeholder="Nome Professore"/>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" name="cognome" id="cognome" placeholder="Cognome">
+                    <form:input class="form-control form-control-user" path="cognome" id="cognome" placeholder="Cognome"/>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="date" id="nascita-data" name="nascita-data" class="form-control form-control-user" placeholder="Data Nascita">
+                    <form:input type="date"  id="nascita-data" path="dataNascita" class="form-control form-control-user" placeholder="Data Nascita"/>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" name="nascita-luogo" id="nascita-luogo" placeholder="Luogo Nascita">
+                    <form:input class="form-control form-control-user" path="luogoNascita" id="nascita-luogo" placeholder="Luogo Nascita"/>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="fiscale" name="fiscale" placeholder="Codice Fiscale">
+                    <form:input  class="form-control form-control-user" id="fiscale" path="codiceFiscale" placeholder="Codice Fiscale"/>
                   </div>
                   
                 </div>
@@ -68,10 +68,10 @@
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0"> <label for="sesso">Sesso:</label><br>
 
-                  <input type="radio" id="uomo" name="sesso" value="uomo" checked="checked"/>
+                  <form:radiobutton id="uomo" path="uomo" value="true" checked="checked"/>
                   <label for="uomo">Uomo</label>
 
-                  <input type="radio" id="sesso" name="sesso" value="donna"/>
+                  <form:radiobutton id="sesso" path="uomo" value="false"/>
                   <label for="donna">Donna</label><br>
                    </div>
                   
@@ -81,7 +81,7 @@
 
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="titoli" name="titoli" placeholder="Titoli di studio">
+                    <form:input class="form-control form-control-user" id="titoli" path="titoliDiStudio" placeholder="Titoli di studio"/>
                   </div>
                   
                 </div>
@@ -91,16 +91,16 @@
 
                  <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username">
+                    <form:input class="form-control form-control-user" id="username" path="account.username" placeholder="Username"/>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                    <form:input  class="form-control form-control-user" id="password" path="account.password" placeholder="Password"/>
                   </div>
                 </div>
 
               <input class="btn btn-success btn-icon-split" type="submit" />
 
-              </form>
+              </form:form>
               
               
             </div>

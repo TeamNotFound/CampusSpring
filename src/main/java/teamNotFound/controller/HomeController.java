@@ -18,7 +18,7 @@ import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.model.Account;
 import teamNotFound.model.Professore;
 import teamNotFound.model.Studente;
-import teamNotFound.model.Utente;
+
 
 
 
@@ -31,10 +31,10 @@ public class HomeController {
 	@Autowired 
 	private BCryptUtil bCryptUtil;
 
-
 	@RequestMapping(value="/")
-	public String index() {
+	public String index(HttpServletRequest request,ModelMap model) {
 		if(professoreDao.getAll().isEmpty()) {
+			model.addAttribute("professore", new Professore());
 			return "firstAccess";
 		}
 		else {
@@ -42,6 +42,16 @@ public class HomeController {
 		}
 	}
 
+	@RequestMapping(value="/FirstAccess", method= RequestMethod.POST)
+	public String firstAccess(@Valid Professore professore, BindingResult result, HttpServletRequest request,ModelMap model) {
+		if(result.hasErrors()) {
+			return "firstAccess";
+		}else {
+			professoreDao.inserimento(professore);
+			return "index";
+		}
+	}
+	
 	@RequestMapping(value="/Login")
 	public String login(HttpServletRequest request,ModelMap model) {
 		model.addAttribute("account",new Account());
@@ -75,7 +85,7 @@ public class HomeController {
 
 				}
 			}
-			return "/";
+			return "index";
 		}else {
 			return "session/login";
 		}
