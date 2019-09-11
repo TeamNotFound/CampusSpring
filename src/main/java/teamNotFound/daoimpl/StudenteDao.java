@@ -8,16 +8,24 @@ import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Studente;
 
+
+
+
+
 @Repository
+
 public class StudenteDao extends CrudGenerico<Studente, Integer> implements CRUDInterface<Studente , Integer>{
  
+
+
 	public StudenteDao () {
-		this.classeT=Studente.class;
-	}
+this.classeT=Studente.class;	}
 	
 	
 	public Studente getByIdWithPrenotazioni(int id) {
-		Studente studente = entity.find(Studente.class, id);
+
+		Studente studente =entity.find(Studente.class, id);
+
 		studente.getPrenotazioni().size();
 		return studente;
 	}
@@ -33,6 +41,9 @@ public class StudenteDao extends CrudGenerico<Studente, Integer> implements CRUD
 		studente.getPrenotazioni().size();
 		studente.getEsami().size();
 		return studente;
+
+
+
 	}
 
 	
