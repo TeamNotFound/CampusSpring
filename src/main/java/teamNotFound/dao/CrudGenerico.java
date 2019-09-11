@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 public abstract class CrudGenerico<T,K>{
 	
 	@PersistenceContext
@@ -24,7 +26,7 @@ public abstract class CrudGenerico<T,K>{
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<T> getAll(){
-		ArrayList<T> elements = (ArrayList<T>) entity.createQuery("from " + classeT.getName()).getResultList();
+		ArrayList<T> elements = (ArrayList<T>) entity.createQuery("select c from " + classeT.getName()+" c").getResultList();
 		return elements;
 	}
 	

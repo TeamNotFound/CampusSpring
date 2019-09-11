@@ -2,14 +2,11 @@ package teamNotFound.daoimpl;
 
 import java.util.*;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
+import teamNotFound.dao.CRUDInterface;
+import teamNotFound.dao.CrudGenerico;
+import teamNotFound.model.Professore;
 
-import dao.interfaces.CRUDInterface;
-import dao.interfaces.CrudGenerico;
-import model.Account;
-import model.Professore;
-import util.HibernateUtil;
+
 
 public class ProfessoreDao extends CrudGenerico<Professore, Integer> implements CRUDInterface<Professore , Integer>{
 	

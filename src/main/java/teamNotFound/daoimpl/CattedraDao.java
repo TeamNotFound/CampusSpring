@@ -1,11 +1,14 @@
 package teamNotFound.daoimpl;
 
-import java.util.ArrayList;
+
+
+import org.springframework.stereotype.Repository;
 
 import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Cattedra;
 
+@Repository
 public class CattedraDao extends CrudGenerico<Cattedra, Integer> implements CRUDInterface<Cattedra , Integer> {
 
 	public CattedraDao() {
