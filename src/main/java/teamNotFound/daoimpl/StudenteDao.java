@@ -1,14 +1,19 @@
 package teamNotFound.daoimpl;
 
-import java.util.ArrayList;
-
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Studente;
 
+<<<<<<< HEAD
+import teamNotFound.dao.CRUDInterface;
+import teamNotFound.dao.CrudGenerico;
+import teamNotFound.model.Studente;
+
+=======
+@Repository
+>>>>>>> branch 'master' of https://github.com/nykomer/CampusSpring
 public class StudenteDao extends CrudGenerico<Studente, Integer> implements CRUDInterface<Studente , Integer>{
  
 
@@ -18,7 +23,11 @@ this.classeT=Studente.class;	}
 	
 	
 	public Studente getByIdWithPrenotazioni(int id) {
+<<<<<<< HEAD
 		Studente studente =entity.find(Studente.class, id);
+=======
+		Studente studente = entity.find(Studente.class, id);
+>>>>>>> branch 'master' of https://github.com/nykomer/CampusSpring
 		studente.getPrenotazioni().size();
 		return studente;
 	}
@@ -34,7 +43,10 @@ this.classeT=Studente.class;	}
 		studente.getPrenotazioni().size();
 		studente.getEsami().size();
 		return studente;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/nykomer/CampusSpring
 	}
 
 	
