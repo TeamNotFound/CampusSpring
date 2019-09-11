@@ -1,7 +1,6 @@
 package teamNotFound.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -82,4 +81,3 @@ public class HomeController {
 		}
 	}
 }
-
