@@ -1,5 +1,5 @@
 <%@ include file="/jsp/templates/header.jspf" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <head>  
   <title>Login</title>
 </head>
@@ -28,15 +28,15 @@
                   </div>
                   </c:when>
 					<c:otherwise>
-					<form action="Login" method="post" class="user">
-						<label name="username">Username: </label><br>
-						<input type="text" name="username"><br>
+					<form:form action="Login" method="post" class="user" modelAttribute="account">
+						<form:label path="username">Username: </form:label><br>
+						<form:input path="username"/><br>
 						
-						<label name="password">Password: </label><br>
-						<input type="password" name="password"><br><br>
+						<form:label path="password">Password: </form:label><br>
+						<form:input path="password"/><br><br>
 					
 						<input class="btn btn-success btn-icon-split" type="submit" value="Accedi"/>
-					</form>
+					</form:form>
 					
 					</c:otherwise>
 					</c:choose>
