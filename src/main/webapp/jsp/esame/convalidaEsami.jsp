@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <title>Prenotazione Esame</title>
@@ -14,11 +15,11 @@
 <tr>
 	<td>${prenotazione.studente.nome} ${prenotazione.studente.cognome}</td>
 	
-	<form action="${requestScope.requestURI}" method="post">
-		<input type="hidden" name="studente" value="${prenotazione.studente.id}">
-		<td><input name="voto" type="number" min="18" max="30"/></td>
+	<form:form modelAttribute="Esame" action="${requestScope.requestURI}" method="post">
+		<form:input type="hidden" path="studente" value="${prenotazione.studente.id}"/>
+		<td><form:input path="votoEsame" type="number" min="18" max="30"/></td>
 		<td><input type="submit" value="Convalida"/></td>
-	</form>
+	</form:form>
 </tr>
 </c:forEach>
 </table>
