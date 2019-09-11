@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.springframework.stereotype.Repository;
+@Repository
 @Entity
 @Table(name="professori_corsi")
 public class Cattedra {

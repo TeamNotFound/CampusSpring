@@ -30,15 +30,13 @@
 					<h6>Corso: ${cattedra.corso.corso }</h6>
 					<hr>
 					<h4>Rimuovi</h4>
-					<form
-						action="/Campus/RimozioneCattedra/${cattedra.corso.id}-${cattedra.professore.id }-${cattedra.facolta.id }"
-						method="post">
+<form:form action="rimozioneCattedra/${cattedra.corso.id}-${cattedra.professore.id }-${cattedra.facolta.id }"method="post">
 						<input type="hidden" name="corsoId" value=${cattedra.corso.id }>
 						<input type="hidden" name="facoltaId"
 							value=${cattedra.facolta.id }> <input type="hidden"
 							name="profId" value=${cattedra.professore.id }> 
 						<input class="btn btn-success btn-icon-split" type="submit"  value="Invia"/>
-					</form>
+					</form:form>
 
 					<!-- CONTENUTO -->
 

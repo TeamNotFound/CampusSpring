@@ -18,30 +18,29 @@
                   <h6 class="m-0 font-weight-bold text-primary">Assegnazione Professore</h6>
                 </div>
                 <div class="card-body">
-					<form action="AssegnazioneCattedra" method="post">
-
-						<label for="prof">Professore:</label> <select id="prof"
-							name="prof">
-							<c:forEach items="${professori}" var="prof">
-								<option value="${prof.id}">${prof.nome}${prof.cognome}</option>
-							</c:forEach>
-						</select><br>
-						<br> <label for="facolta">Facoltà:</label> <select
-							id="facolta" name="facolta">
-							<c:forEach items="${facolta}" var="fac">
-								<option value="${fac.id}">${fac.facolta}</option>
-							</c:forEach>
-						</select><br>
-						<br> <label for="corso">Corso:</label> <select id="corso"
-							name="corso">
-							<c:forEach items="${corsi}" var="corso">
-								<option value="${corso.id}">${corso.corso}</option>
-							</c:forEach>
-						</select><br>
+					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post">
+  					
+  						<form:label path="professore">Professore: </form:label>
+  						<form:select path="professore">
+  						<form:options items="${professori}"/>
+  						</form:select>
+  						
+  							<form:label path="facolta">Facolta: </form:label>
+  						<form:select path="facolta">
+  						<form:options items="${facolta}"/>
+  						</form:select>
+  						
+  							<form:label path="corso">Corso: </form:label>
+  						<form:select path="corso">
+  						<form:options items="${corsi}"/>
+  						</form:select>
+  						
+  					
+						
 						<br> <input class="btn btn-success btn-icon-split"
 							type="submit" />
 
-					</form>
+					</form:form>
 				</div>
               </div>
           </div>
