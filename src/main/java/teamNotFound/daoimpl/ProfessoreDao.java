@@ -17,7 +17,6 @@ public class ProfessoreDao extends CrudGenerico<Professore, Integer> implements 
 		professore.getCattedra().size();
 		return professore;
 	}
-
 }
 
 
