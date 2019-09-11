@@ -43,24 +43,29 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <form:input  class="form-control form-control-user" path="nome" id="nome" placeholder="Nome Professore"/>
+                    <form:errors path="nome"/>
                   </div>
                   <div class="col-sm-6">
                     <form:input class="form-control form-control-user" path="cognome" id="cognome" placeholder="Cognome"/>
+                    <form:errors path="cognome"/>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <form:input type="date"  id="nascita-data" path="dataNascita" class="form-control form-control-user" placeholder="Data Nascita"/>
+                  	
                   </div>
                   <div class="col-sm-6">
                     <form:input class="form-control form-control-user" path="luogoNascita" id="nascita-luogo" placeholder="Luogo Nascita"/>
+                  	<form:errors path="luogoNascita"/>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0">
                     <form:input  class="form-control form-control-user" id="fiscale" path="codiceFiscale" placeholder="Codice Fiscale"/>
+                 	<form:errors path="codiceFiscale"/>
                   </div>
                   
                 </div>
@@ -82,22 +87,22 @@
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0">
                     <form:input class="form-control form-control-user" id="titoli" path="titoliDiStudio" placeholder="Titoli di studio"/>
+                  	<form:errors path="titoliDiStudio"/>
                   </div>
                   
                 </div>
 
-
-
-
                  <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <form:input class="form-control form-control-user" id="username" path="account.username" placeholder="Username"/>
+                  	<form:errors path="account.username"/>
                   </div>
                   <div class="col-sm-6">
                     <form:input  class="form-control form-control-user" id="password" path="account.password" placeholder="Password"/>
+                  	<form:errors path="account.password"/>
                   </div>
+                  
                 </div>
-
               <input class="btn btn-success btn-icon-split" type="submit" />
 
               </form:form>

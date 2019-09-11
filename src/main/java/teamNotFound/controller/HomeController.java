@@ -1,11 +1,17 @@
 package teamNotFound.controller;
 
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -19,9 +25,6 @@ import teamNotFound.model.Account;
 import teamNotFound.model.Professore;
 import teamNotFound.model.Studente;
 
-
-
-
 @Controller
 public class HomeController {
 	@Autowired
@@ -30,7 +33,9 @@ public class HomeController {
 	private AccountDao accountDao;
 	@Autowired 
 	private BCryptUtil bCryptUtil;
-
+	
+	
+	
 	@RequestMapping(value="/")
 	public String index(HttpServletRequest request,ModelMap model) {
 		if(professoreDao.getAll().isEmpty()) {
@@ -43,12 +48,16 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/FirstAccess", method= RequestMethod.POST)
-	public String firstAccess(@Valid Professore professore, BindingResult result, HttpServletRequest request,ModelMap model) {
+	public String firstaccess(@Valid Professore professore, BindingResult result) {
+		System.out.println("nel do post");
+		System.out.println(result.getAllErrors());
 		if(result.hasErrors()) {
 			return "firstAccess";
 		}else {
+			System.out.println("else prima del dao");
 			professoreDao.inserimento(professore);
-			return "index";
+			System.out.println("else dopo il dao");
+			return "session/login";
 		}
 	}
 	
@@ -82,7 +91,6 @@ public class HomeController {
 					session.setAttribute("rettore", true);
 				} else {
 					session.setAttribute("rettore", false);
-
 				}
 			}
 			return "index";
@@ -90,5 +98,11 @@ public class HomeController {
 			return "session/login";
 		}
 	}
+	
+	@RequestMapping(value="/", method= RequestMethod.POST)
+	public String logout(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		session.invalidate();
+		return "session/login.jsp";
+	}
 }
-

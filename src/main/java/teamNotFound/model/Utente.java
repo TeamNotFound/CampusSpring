@@ -3,7 +3,12 @@ package teamNotFound.model;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.lang.NonNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -24,9 +29,8 @@ public abstract class Utente {
 	private String cognome;
 	
 	@Column
-	@NotEmpty(message="Inserire data di nascita")
+	@NotNull/*(message="Inserire data di nascita")*/
 	private Date dataNascita;
-	
 	
 	@Column
 	@NotEmpty(message="Inserire luogo di nascita")
@@ -41,6 +45,7 @@ public abstract class Utente {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
+    @Valid
     private Account account;
     
     

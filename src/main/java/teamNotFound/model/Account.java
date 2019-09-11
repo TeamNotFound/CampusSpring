@@ -11,17 +11,18 @@ public class Account {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty(message = "Inserire username")
+	
 	@Column(unique = true)
+	@NotEmpty(message = "Inserire username")
 	private String username;
 	
-	@NotEmpty(message="Inserire password")
+	
 	@Column
+	@NotEmpty(message="Inserire password")
 	private String password;
 	
 	@OneToOne(mappedBy = "account")
 	private Utente utente;
-	
 	
 	public Utente getUtente() {
 		return utente;
