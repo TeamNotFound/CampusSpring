@@ -35,11 +35,11 @@ public class Professore extends Utente{
 		this.rettore = rettore;
 	}
 
-	public Set<Cattedra> getProfessoriCorsi() {
+	public Set<Cattedra> getCattedra() {
 		return cattedra;
 	}
 
-	public void setProfessoriCorsi(Set<Cattedra> cattedra) {
+	public void setCattedra(Set<Cattedra> cattedra) {
 		this.cattedra = cattedra;
 	}
 
