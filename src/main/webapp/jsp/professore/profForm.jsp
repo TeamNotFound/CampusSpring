@@ -43,9 +43,9 @@
 						<form:input path="codiceFiscale" /><br>
 						<form:errors path="codiceFiscale" cssStyle="color:red"/><br>
 						
-						<form:label path="sesso">Sesso:</form:label><br>
-						<form:radiobutton path="sesso" value="true" label="Uomo" checked="true"/><br>
-						<form:radiobutton path="sesso" value="false" label="Donna"/><br>
+						<form:label path="uomo">Sesso:</form:label><br>
+						<form:radiobutton path="uomo" value="true" label="Uomo" checked="true"/><br>
+						<form:radiobutton path="uomo" value="false" label="Donna"/><br>
 
 						<form:label path="titoliDiStudio">Titoli Di Studio</form:label><br> 
 						<form:input path="titoliDiStudio" /><br>
@@ -53,13 +53,13 @@
 
 						<hr>
 
-						<form:label path="username">Username</form:label><br>
-						<form:input path="username"/><br>
-						<form:errors path="username" cssStyle="color:red"/><br>
+						<form:label path="account.username">Username</form:label><br>
+						<form:input path="account.username"/><br>
+						<form:errors path="account.username" cssStyle="color:red"/><br>
 						
-						<form:label path="password">Password</form:label><br>
-						<form:password path="password"/><br>
-						<form:errors path="password"/><br>
+						<form:label path="account.password">Password</form:label><br>
+						<form:password path="account.password"/><br>
+						<form:errors path="account.password"/><br>
 						
 						<input class="btn btn-success btn-icon-split" type="submit" />
 

@@ -17,7 +17,7 @@ public class AccountDao extends CrudGenerico<Account, Integer> implements CRUDIn
 		try{
 			Account account = this.entity.createQuery("SELECT a FROM Account a WHERE a.username = :username", Account.class)
 							  .setParameter("username", username)
-							  .getResultList().get(0);
+							  .getSingleResult();
 			return account;
 			
 		} catch(Exception e) {

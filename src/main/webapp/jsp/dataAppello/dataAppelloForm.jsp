@@ -44,7 +44,7 @@
 
 						<h4>Inserimento data appello</h4>
 						<form:label path="dataAppello">Data appello</form:label><br> 
-						<form:input path="dataAppello" type="date"name="data" placeholder="Data" />
+						<form:input path="dataAppello" type="date" name="data" placeholder="Data" />
 						<input class="btn btn-success btn-icon-split" type="submit" name="insData"/>
 						
 					</form:form>

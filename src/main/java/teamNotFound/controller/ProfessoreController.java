@@ -23,7 +23,7 @@ public class ProfessoreController {
 
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
-		model.addAttribute("professore", professoreDao.getAll());
+		model.addAttribute("professori", professoreDao.getAll());
 		return "professore/gestioneProfessori";
 	}
 

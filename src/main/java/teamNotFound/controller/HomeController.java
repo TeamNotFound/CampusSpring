@@ -31,7 +31,7 @@ public class HomeController {
 	
 	
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value= {"/","/Home"})
 	public String index(HttpServletRequest request,ModelMap model) {
 		if(professoreDao.getAll().isEmpty()) {
 			model.addAttribute("professore", new Professore());
