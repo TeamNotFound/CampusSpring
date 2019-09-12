@@ -30,10 +30,12 @@
 					<c:otherwise>
 					<form:form action="Login" method="post" class="user" modelAttribute="account">
 						<form:label path="username">Username: </form:label><br>
-						<form:input path="username"/><br>
+						<form:input path="username"/>
+						<form:errors path="username"/><br>
 						
 						<form:label path="password">Password: </form:label><br>
-						<form:input path="password"/><br><br>
+						<form:password path="password"/>
+						<form:errors path="password"/><br><br>
 					
 						<input class="btn btn-success btn-icon-split" type="submit" value="Accedi"/>
 					</form:form>

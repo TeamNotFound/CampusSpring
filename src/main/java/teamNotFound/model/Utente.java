@@ -3,6 +3,15 @@ package teamNotFound.model;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -14,18 +23,25 @@ public abstract class Utente {
 	private int id;
 	
 	@Column
+	@NotEmpty(message="Inserire nome")
 	private String nome;
 	
+	
 	@Column
+	@NotEmpty(message="Inserire cognome")
 	private String cognome;
 	
 	@Column
+	@NotNull(message = "Inserire data di nascita")
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date dataNascita;
 	
 	@Column
+	@NotEmpty(message="Inserire luogo di nascita")
 	private String luogoNascita;
 	
 	@Column
+	@NotEmpty(message="Inserire codice fiscale")
 	private String codiceFiscale;
 	
     @Column
@@ -33,6 +49,7 @@ public abstract class Utente {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
+    @Valid
     private Account account;
     
     
