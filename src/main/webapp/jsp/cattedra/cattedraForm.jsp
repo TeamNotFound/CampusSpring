@@ -1,4 +1,4 @@
-<html>
+ <html>
 <head>
 <title>Assegnazione Professore</title>
 </head>
@@ -18,7 +18,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Assegnazione Professore</h6>
                 </div>
                 <div class="card-body">
-					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post">
+					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post" modelAttribute="cattedra">
   					
   						<form:label path="professore">Professore: </form:label>
   						<form:select path="professore">

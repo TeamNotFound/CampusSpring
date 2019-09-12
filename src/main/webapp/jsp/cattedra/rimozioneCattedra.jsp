@@ -1,3 +1,4 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
 <title>Rimozione cattedra</title>
@@ -31,10 +32,9 @@
 					<hr>
 					<h4>Rimuovi</h4>
 <form:form action="rimozioneCattedra/${cattedra.corso.id}-${cattedra.professore.id }-${cattedra.facolta.id }"method="post">
-						<input type="hidden" name="corsoId" value=${cattedra.corso.id }>
-						<input type="hidden" name="facoltaId"
-							value=${cattedra.facolta.id }> <input type="hidden"
-							name="profId" value=${cattedra.professore.id }> 
+						<input type="hidden" name="corsoId" value="${cattedra.corso.id }"/>
+						<input type="hidden" name="facoltaId" value=${cattedra.facolta.id }/> <input type="hidden"
+							name="profId" value=${cattedra.professore.id }/> 
 						<input class="btn btn-success btn-icon-split" type="submit"  value="Invia"/>
 					</form:form>
 
