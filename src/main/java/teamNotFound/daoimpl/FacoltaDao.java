@@ -2,10 +2,12 @@ package teamNotFound.daoimpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Facolta;
-
+@Repository
 public class FacoltaDao extends CrudGenerico<Facolta, Integer> implements CRUDInterface<Facolta , Integer>{
 
 	public FacoltaDao () {

@@ -1,7 +1,11 @@
 package teamNotFound.controller;
 
+<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
 
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+>>>>>>> branch 'master' of https://github.com/TeamNotFound/CampusSpring
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -100,17 +104,17 @@ public class HomeController {
 					session.setAttribute("rettore", false);
 				}
 			}
-	//		model.remove("account"); //controllare se funziona
 			return "redirect:/";
 		}else {
 			model.addAttribute("account", new Account());
 			return "redirect:/Login?error";
 		}
 	}
-	
+
 	@RequestMapping(value="/Logout", method= RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/Login";
 	}
 }
+
