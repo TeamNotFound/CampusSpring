@@ -4,11 +4,14 @@ import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.lang.NonNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -29,7 +32,8 @@ public abstract class Utente {
 	private String cognome;
 	
 	@Column
-	@NotNull/*(message="Inserire data di nascita")*/
+	@NotNull(message = "Inserire data di nascita")
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date dataNascita;
 	
 	@Column

@@ -13,6 +13,7 @@ import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,13 +41,18 @@ public class HomeController {
 	public String index(HttpServletRequest request,ModelMap model) {
 		if(professoreDao.getAll().isEmpty()) {
 			model.addAttribute("professore", new Professore());
-			return "firstAccess";
+			return "redirect:/FirstAccess";
 		}
 		else {
 			return "index";
 		}
 	}
 
+	@RequestMapping(value="/FirstAccess", method=RequestMethod.GET)
+	public String firstAccessForm(Model model) {
+		model.addAttribute("professore", new Professore());
+		return "firstAccess";
+	}
 	@RequestMapping(value="/FirstAccess", method= RequestMethod.POST)
 	public String firstaccess(@Valid Professore professore, BindingResult result) {
 		System.out.println("nel do post");
@@ -54,10 +60,11 @@ public class HomeController {
 		if(result.hasErrors()) {
 			return "firstAccess";
 		}else {
+			professore.getAccount().setPassword(bCryptUtil.hashPsw(professore.getAccount().getPassword()));
 			System.out.println("else prima del dao");
 			professoreDao.inserimento(professore);
 			System.out.println("else dopo il dao");
-			return "session/login";
+			return "redirect:/Login";
 		}
 	}
 	
@@ -68,7 +75,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/Login", method= RequestMethod.POST)
-	public String loginForm(@Valid Account account, BindingResult result, HttpServletRequest request,ModelMap model) {
+	public String loginForm(Account account, HttpServletRequest request,ModelMap model) {
 		Account a=accountDao.getByUsername(account.getUsername());
 		if(a != null && bCryptUtil.checkPs2(account.getPassword(), a.getPassword())){
 			System.out.println("Login successfull.");
@@ -93,16 +100,17 @@ public class HomeController {
 					session.setAttribute("rettore", false);
 				}
 			}
-			return "index";
+	//		model.remove("account"); //controllare se funziona
+			return "redirect:/";
 		}else {
-			return "session/login";
+			model.addAttribute("account", new Account());
+			return "redirect:/Login?error";
 		}
 	}
 	
-	@RequestMapping(value="/", method= RequestMethod.POST)
+	@RequestMapping(value="/Logout", method= RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
-		HttpSession session=request.getSession();
-		session.invalidate();
-		return "session/login.jsp";
+		request.getSession().invalidate();
+		return "redirect:/Login";
 	}
 }

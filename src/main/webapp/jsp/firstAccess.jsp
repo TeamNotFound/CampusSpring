@@ -54,7 +54,7 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <form:input type="date"  id="nascita-data" path="dataNascita" class="form-control form-control-user" placeholder="Data Nascita"/>
-                  	
+
                   </div>
                   <div class="col-sm-6">
                     <form:input class="form-control form-control-user" path="luogoNascita" id="nascita-luogo" placeholder="Luogo Nascita"/>
@@ -88,6 +88,7 @@
                   <div class="col-sm-12 mb-3 mb-sm-0">
                     <form:input class="form-control form-control-user" id="titoli" path="titoliDiStudio" placeholder="Titoli di studio"/>
                   	<form:errors path="titoliDiStudio"/>
+                  	<form:hidden path="rettore" value="true"/>
                   </div>
                   
                 </div>
