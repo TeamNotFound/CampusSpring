@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,15 +38,16 @@ public class ControllerCattedra {
 		model.addAttribute("professori",professoreDao.getAll() );
 		model.addAttribute("facolta", facoltaDao.getAll());
 		model.addAttribute("corsi", corsoDao.getAll());
-		return "cattedra/cattedraFrom";
+		return "cattedra/cattedraForm";
 		}
 	
 	@RequestMapping(value="/inserimentoCattedra", method=RequestMethod.POST)
-	public String insCattPost(@Valid Cattedra cattedra, BindingResult result) {
+	public String insCattPost(@Valid Cattedra cattedra, BindingResult result, Model model) {
 		
 		if (result.hasErrors()) {
-			System.out.println("Errore");
-			return "cattedra/cattedraForm";
+			System.out.println("Errore"); 
+			model.addAttribute("cattedra", new Cattedra());
+	     return "redirect:/inserimentoCattedra";
 	
 		}else {
 			cattedradao.inserimento(cattedra);
@@ -54,7 +56,7 @@ public class ControllerCattedra {
 	}
 	@RequestMapping(value="/rimuoviCattedra", method=RequestMethod.GET)
 	public  String rimCatt(HttpServletRequest request, ModelMap model) {
-		model.addAttribute("cattedra", new ControllerCattedra());
+		model.addAttribute("cattedra", new Cattedra());
 		return "cattedra/rimozioneCattedra";
 		}
 	@RequestMapping(value="/rimuoviCattedra/{composedId}", method=RequestMethod.POST)
