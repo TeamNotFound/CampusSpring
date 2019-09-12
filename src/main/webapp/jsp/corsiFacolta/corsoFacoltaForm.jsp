@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
 <title>Inserimento Facoltà</title>
@@ -21,10 +22,10 @@
 				<div class="card-body">
 
 					<!-- INSERIRE CONTENUTO -->
-					<form:form action="${pageContext.request.contextPath }/inserimentoFacolta" method="post">
+					<form:form action="${pageContext.request.contextPath }/inserimentoFacolta" method="post" modelAttribute="newFacolta">
 						<label path="facolta">Facoltà: </label><br> 
-						<form:input path="facolta"  /><br>
-							<form:input class="btn btn-success btn-icon-split"
+						<form:input path="facolta"/><br>
+							<input class="btn btn-success btn-icon-split"
 							type="submit" />
 					</form:form>
 					<!-- CONTENUTO -->
@@ -45,10 +46,10 @@
 				<div class="card-body">
 
 					<!-- INSERIRE CONTENUTO -->
-					<form:form  action="${pageContext.request.contextPath }/inserimentoCorso" method="post">
+					<form:form  action="${pageContext.request.contextPath }/inserimentoCorso" method="post" modelAttribute="newCorso">
 						<form:label path="corso">Corso: </form:label><br> 
 						<form:input path="corso"/><br>
-						<form:errors path="corso" />
+						<form:errors path="corso"/>
 						
 							<input class="btn btn-success btn-icon-split" type="submit" />
 					</form:form>
@@ -72,17 +73,17 @@
 				<div class="card-body">
 
 					<!-- INSERIRE CONTENUTO -->
-					<form:form action="CorsiFacolta" method="post">
+					<form:form action="CorsiFacolta" method="post" >
 					
-						<form:label path="facolta">Facolta: </form:label>
-  						<form:select path="facolta">
-  						<form:options items="${facolta}"/>
-  						</form:select>
+						<label path="facolta">Facolta: </label>
+  						<select path="facolta">
+  						<options items="${facolta}"/>
+  						</select>
 						
-							<form:label path="corsi">Corsi: </form:label>
-  						<form:select path="corsi">
-  						<form:options items="${corsi}"/>
-  						</form:select>
+							<label path="corsi">Corsi: </label>
+  						<select path="corsi">
+  						<options items="${corsi}"/>
+  						</select>
   						
 						 <input class="btn btn-success btn-icon-split"
 							type="submit" />

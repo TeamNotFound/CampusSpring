@@ -100,7 +100,7 @@
 	<c:if test="${sessionScope.rettore}">
 	
 		<li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/CorsiFacolta">
+        <a class="nav-link" href="${pageContext.request.contextPath}/CorsoFacolta">
           <i class="fas fa-fw fa-table"></i>
           <span>Corsi e Facolta</span></a>
       </li>
