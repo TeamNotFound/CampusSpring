@@ -1,6 +1,5 @@
 package teamNotFound.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,7 @@ public class ControllerCorsoFacolta {
 
 		return "corsiFacolta/corsoFacoltaForm";
 	}
+
 
 	@RequestMapping(value="/inserimentoCorso", method=RequestMethod.POST)
 	public String insCorPost(@Valid Corso corso, BindingResult result, ModelMap model) {
