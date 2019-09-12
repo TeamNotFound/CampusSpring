@@ -1,6 +1,5 @@
 package teamNotFound.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,13 @@ public class ControllerCorsoFacolta {
 	@Autowired
 	FacoltaDao facoltaDao;
 	
-	@RequestMapping(value="/CorsoFacolta", method=RequestMethod.GET)
+	@RequestMapping(value="/CorsiFacolta", method=RequestMethod.GET)
 	public  String insCorFac(ModelMap model) {
 		model.addAttribute("facolta", facoltaDao.getAll());
 		model.addAttribute("corsi", corsoDao.getAll());
-		return "corsiFacoltaForm";
+		return "corsiFacolta/corsoFacoltaForm";
 		}
-
+	
 	@RequestMapping(value="/inserimentoCorso", method=RequestMethod.POST)
 	public String insCorPost(@Valid Corso corso, BindingResult result) {
 		
