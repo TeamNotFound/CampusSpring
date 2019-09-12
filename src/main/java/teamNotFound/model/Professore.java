@@ -3,6 +3,7 @@ package teamNotFound.model;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table (name="professori")
@@ -11,6 +12,7 @@ public class Professore extends Utente{
 	private boolean rettore;
 	
 	@Column(name="titoli_di_studio")
+	@NotEmpty(message="Inserire titolo di studio")
 	private String titoliDiStudio;
 	
 	@OneToMany(mappedBy = "professore")
