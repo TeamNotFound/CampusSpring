@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
  <html>
 <head>
 <title>Assegnazione Professore</title>
@@ -20,21 +21,50 @@
                 <div class="card-body">
 					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post" modelAttribute="cattedra">
   					
-  						<form:label path="professore">Professore: </form:label>
+  				<!--  	<form:label path="professore">Professore: </form:label>
   						<form:select path="professore">
-  						<form:options items="${professori}"/>
+  						<form:options items="${professori}" itemLabel="nome"/>
   						</form:select>
   						
   							<form:label path="facolta">Facolta: </form:label>
   						<form:select path="facolta">
-  						<form:options items="${facolta}"/>
+  						<form:options items="${facolta}" itemLabel="facolta"/>
   						</form:select>
   						
   							<form:label path="corso">Corso: </form:label>
   						<form:select path="corso">
-  						<form:options items="${corsi}"/>
-  						</form:select>
+  						<form:options items="${corsi}" itemLabel="corso"/>
+  						</form:select>    -->
   						
+  						<label for="facolta">Facolta: </label>
+  						<select name="facolta">
+  						<c:forEach items="${facolta}" var="f">
+  						<option value="${f.id}"> 
+  						${f.facolta}
+  						 </option>
+  			
+  						</c:forEach>
+  						</select>
+  						<label for="corso">Corso</label>
+  						<select name="corso">
+						<c:forEach items="${corsi}" var="c">
+  						<option value="${c.id}"> 
+  						${c.corso}
+  						 </option>
+  			
+  						</c:forEach>
+  						</select>
+  						
+  						</select>
+  						<label for="professore">Professore</label>
+  						<select name="professore">
+						<c:forEach items="${professori}" var="p">
+  						<option value="${p.id}"> 
+  						${p.nome} ${p.cognome} 
+  						 </option>
+  			
+  						</c:forEach>
+  						</select>
   					
 						
 						<br> <input class="btn btn-success btn-icon-split"

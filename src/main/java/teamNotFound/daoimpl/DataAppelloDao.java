@@ -5,12 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.DataAppello;
 
 @Repository
-public class DataAppelloDao extends CrudGenerico<DataAppello, Integer> implements CRUDInterface<DataAppello , Integer>{
+public class DataAppelloDao extends CrudGenerico<DataAppello, Integer>{
 
 	public DataAppelloDao () {
 		this.classeT=DataAppello.class;

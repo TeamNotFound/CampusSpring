@@ -32,7 +32,7 @@ public class ControllerCattedra {
 	
 	@RequestMapping(value="/inserimentoCattedra", method=RequestMethod.GET)
 	public  String insCatt(HttpServletRequest request, ModelMap model) {
-		model.addAttribute("cattedra", new Cattedra());
+ 
 		model.addAttribute("professori",professoreDao.getAll() );
 		model.addAttribute("facolta", facoltaDao.getAll());
 		model.addAttribute("corsi", corsoDao.getAll());
@@ -41,6 +41,8 @@ public class ControllerCattedra {
 	
 	@RequestMapping(value="/inserimentoCattedra", method=RequestMethod.POST)
 	public String insCattPost(@Valid Cattedra cattedra, BindingResult result, Model model) {
+		model.addAttribute("cattedra", new Cattedra());
+		System.out.println(result.getAllErrors());
 		
 		if (result.hasErrors()) {
 			System.out.println("Errore"); 
@@ -49,7 +51,7 @@ public class ControllerCattedra {
 	
 		}else {
 			cattedradao.inserimento(cattedra);
-			return "redirect:/";
+			return "redirect:/inserimentoCattedra";
 		}
 	}
 	

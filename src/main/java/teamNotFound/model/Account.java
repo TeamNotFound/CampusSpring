@@ -24,6 +24,9 @@ public class Account {
 	@OneToOne(mappedBy = "account")
 	private Utente utente;
 	
+	@ManyToOne
+	private Ruolo ruolo;
+	
 	public Utente getUtente() {
 		return utente;
 	}

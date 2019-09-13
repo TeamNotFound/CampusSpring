@@ -10,12 +10,31 @@
 
 	<!-- Content Row -->
 	<div class="row">
+	
+	<!-- Content Column -->
+		<div class="col-lg-12 mb-4">
+			<!-- Approach -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Inserimento Ruolo</h6>
+				</div>
+				<div class="card-body">
+
+					<!-- INSERIRE CONTENUTO -->
+					<form:form  action="${pageContext.request.contextPath }/Ruolo" method="post" modelAttribute="newRuolo">
+						<form:label path="ruolo">Ruolo: </form:label><br> 
+						<form:input path="ruolo"/><br>
+						<form:errors path="ruolo"/>
+						
+							<input class="btn btn-success btn-icon-split" type="submit" />
+					</form:form>
+					<!-- CONTENUTO -->
 
 		<!-- Content Column -->
 		<div class="col-lg-12 mb-4">
 			<!-- Approach -->
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
+				<div class="card-header py-3"> 
 					<h6 class="m-0 font-weight-bold text-primary">Inserimento
 						Facoltà</h6>
 				</div>
@@ -73,16 +92,25 @@
 				<div class="card-body">
 
 					<!-- INSERIRE CONTENUTO -->
-					<form:form action="CorsiFacolta" method="post" >
+					<form:form action="corso-facolta" method="post" >
 					
-						<label path="facolta">Facolta: </label>
-  						<select path="facolta">
-  						<options items="${facolta}"/>
+						<label for="facoltaId">Facolta: </label>
+  						<select name="facoltaId">
+  						<c:forEach items="${facolta}" var="f">
+  						<option value="${f.id}"> 
+  						${f.facolta}
+  						 </option>
+  			
+  						</c:forEach>
   						</select>
-						
-							<label path="corsi">Corsi: </label>
-  						<select path="corsi">
-  						<options items="${corsi}"/>
+  						<label for="corsoId">Corso</label>
+  						<select name="corsoId">
+						<c:forEach items="${corsi}" var="c">
+  						<option value="${c.id}"> 
+  						${c.corso}
+  						 </option>
+  			
+  						</c:forEach>
   						</select>
   						
 						 <input class="btn btn-success btn-icon-split"
