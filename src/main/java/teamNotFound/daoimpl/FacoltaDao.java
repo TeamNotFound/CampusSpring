@@ -1,7 +1,5 @@
 package teamNotFound.daoimpl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import teamNotFound.dao.CRUDInterface;
@@ -12,10 +10,7 @@ public class FacoltaDao extends CrudGenerico<Facolta, Integer> implements CRUDIn
 
 	public FacoltaDao () {
 		this.classeT=Facolta.class;
-	}
-
-	@SuppressWarnings("unchecked")
-	
+	}	
 	
 	public Facolta getByIdWithCorsi(int id) {
 		

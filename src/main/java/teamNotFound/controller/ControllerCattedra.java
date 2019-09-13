@@ -37,7 +37,7 @@ public class ControllerCattedra {
 		model.addAttribute("facolta", facoltaDao.getAll());
 		model.addAttribute("corsi", corsoDao.getAll());
 		return "cattedra/cattedraForm";
-		}
+	}
 	
 	@RequestMapping(value="/inserimentoCattedra", method=RequestMethod.POST)
 	public String insCattPost(@Valid Cattedra cattedra, BindingResult result, Model model) {
@@ -52,13 +52,15 @@ public class ControllerCattedra {
 			return "redirect:/";
 		}
 	}
+	
 	@RequestMapping(value="/rimuoviCattedra", method=RequestMethod.GET)
 	public  String rimCatt(HttpServletRequest request, ModelMap model) {
 		model.addAttribute("cattedra", new Cattedra());
 		return "cattedra/rimozioneCattedra";
-		}
+	}
+	
 	@RequestMapping(value="/rimuoviCattedra/{composedId}", method=RequestMethod.POST)
-	public String rimCattPost( @PathVariable String composedId, @RequestParam Integer corsoId, @RequestParam Integer facoltaId, @RequestParam Integer profId) {
+	public String rimCattPost(@PathVariable String composedId, @RequestParam Integer corsoId, @RequestParam Integer facoltaId, @RequestParam Integer profId) {
 		
 		Cattedra cattedra = cattedradao.getByComposedId(corsoId,profId,facoltaId);
 		cattedradao.remove(cattedra);

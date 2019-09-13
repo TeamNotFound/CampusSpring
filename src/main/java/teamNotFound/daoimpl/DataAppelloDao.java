@@ -15,7 +15,6 @@ public class DataAppelloDao extends CrudGenerico<DataAppello, Integer> implement
 	public DataAppelloDao () {
 		this.classeT=DataAppello.class;
 	}
-	@SuppressWarnings("unchecked")
 
 	public List<DataAppello> getByFacoltaAndCorso(int idFacolta, int idCorso) {
 		try {			
@@ -31,7 +30,6 @@ public class DataAppelloDao extends CrudGenerico<DataAppello, Integer> implement
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<DataAppello> getByProfessoreFacoltaAndCorso(int idProfessore, int idFacolta, int idCorso) {
 		try {			
 			List<DataAppello> appelli= entity.createQuery("select d from DataAppello d where d.facolta_id = :facolta and d.corso_id = :corso and d.professore_id=:professore", DataAppello.class)
