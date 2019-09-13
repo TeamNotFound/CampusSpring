@@ -69,9 +69,7 @@ public class HomeController {
 			return "firstAccess";
 		}else {
 			professore.getAccount().setPassword(bCryptUtil.hashPsw(professore.getAccount().getPassword()));
-			System.out.println("else prima del dao");
 			professoreDao.inserimento(professore);
-			System.out.println("else dopo il dao");
 			return "redirect:/Login";
 		}
 	}
