@@ -79,6 +79,7 @@ public class ControllerCorsoFacolta {
 		facoltaDao.remove(facolta);
 		return "redirect:/";
 	}
+	
 	@RequestMapping(value="/visualizza", method=RequestMethod.POST)
 	public String visualizzaF(@Valid Corso corso, BindingResult result) {
 
