@@ -18,9 +18,7 @@ import teamNotFound.daoimpl.DataAppelloDao;
 import teamNotFound.daoimpl.FacoltaDao;
 import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.model.Account;
-import teamNotFound.model.Corso;
 import teamNotFound.model.DataAppello;
-import teamNotFound.model.Facolta;
 import teamNotFound.model.Professore;
 import teamNotFound.model.Utente;
 
@@ -47,7 +45,9 @@ public class ControllerDataAppello {
 		public String InserimentoAppello(@PathVariable String id, HttpServletRequest request) {
 			DataAppello dataAppello = new DataAppello();
 			String[] values=id.split("-");
+			
 			Professore pf = (Professore) ((Account) request.getSession().getAttribute("account")).getUtente();
+			dataAppello.setProfessore(pf);
 			
 			String param = request.getParameter("data");
 			Date dataDaInserire = null;
