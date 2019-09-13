@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
 <title>Inserimento Studente</title>
@@ -20,34 +21,52 @@
                 <div class="card-body">
 					
                 <!-- INSERIRE CONTENUTO -->
-					<form action="Studente" method="post">
-						<label for="nome">Nome: </label><br> <input id="nome"
-							name="nome" type="text"><br> <label for="cognome">Cognome:
-						</label><br> <input id="cognome" name="cognome" type="text"><br>
+					<form:form modelAttribute="studente" action="Studente" method="post">
+						<form:label path="nome">Nome:</form:label><br> 
+						<form:input id="nome" path="nome"/><br> 
+						<form:errors path="nome" cssStyle="color:red"/><br>
+						
+						<form:label path="cognome">Cognome:</form:label><br> 
+						<form:input id="cognome" path="cognome"/><br>
+						<form:errors path="cognome" cssStyle="color:red"/><br>
 
-						<label for="nascita-data">Data Nascita</label><br> <input
-							type="date" id="nascita-data" name="nascita-data" /><br> <label
-							for="nascita-luogo">Luogo Nascita</label><br> <input
-							type="text" id="nascita-luogo" name="nascita-luogo" /><br> <label
-							for="fiscale">Codice Fiscale</label><br> <input type="text"
-							id="fiscale" name="fiscale" /><br> <label for="sesso">Sesso:</label><br>
+						<form:label path="dataNascita">Data Nascita</form:label><br> 
+						<form:input type="date" id="nascita-data" path="dataNascita" /><br>
+						<form:errors path="dataNascita" cssStyle="color:red"/><br>
+						
+						<form:label path="luogoNascita">Luogo Nascita</form:label><br> 
+						<form:input id="nascita-luogo" path="luogoNascita" /><br> 
+						<form:errors path="luogoNascita" cssStyle="color:red"/><br>
+						
+						<form:label path="codiceFiscale">Codice Fiscale</form:label><br> 
+						<form:input id="fiscale" path="codiceFiscale" /><br> 
+						<form:errors path="codiceFiscale" cssStyle="color:red"/><br>
+						
+						<form:label path="titoliDiStudio">Titoli Di Studio</form:label><br> 
+						<form:input path="titoliDiStudio" /><br>
+						<form:errors path="titoliDiStudio" cssStyle="color:red"/><br>
+						
+						<form:label path="uomo">Sesso:</form:label><br>
+						<form:radiobutton id="uomo" path="uomo" value="true" label="Uomo"/> <br>
+						<form:radiobutton id="sesso" path="uomo" value="false" label="Donna"/><br> 
 
-						<input type="radio" id="uomo" name="sesso" value="uomo" /> <label
-							for="uomo">Uomo</label><br> <input type="radio" id="sesso"
-							name="sesso" value="donna" /> <label for="donna">Donna</label><br>
-
-						<label for="facolta">Facoltà: </label><br> <select
-							id="facolta" name="facolta">
+						<label for="selFacolta">Facoltà: </label><br> 
+						<select id="selFacolta" name="selFacolta">
 							<c:forEach items="${facolta}" var="fac">
 								<option value="${fac.id}">${fac.facolta}</option>
 							</c:forEach>
-						</select><br> <label for="username">Username: </label><br> <input
-							id="username" name="username" type="text"><br> <label
-							for="password">Password: </label><br> <input id="password"
-							name="password" type="password"><br>
+						</select><br> 
+						
+						<form:label path="account.username">Username: </form:label><br> 
+						<form:input id="username" path="account.username"/><br> 
+						<form:errors path="account.username" cssStyle="color:red"/><br>
+						
+						<form:label path="account.password">Password: </form:label><br> 
+						<form:password id="password" path="account.password"/><br>
+						<form:errors path="account.password" cssStyle="color.red"/><br>
 
-						<input class="btn btn-success btn-icon-split" type="submit" />
-					</form>
+						<input class="btn btn-success btn-icon-split" type="submit" value="Registrati"/>
+					</form:form>
 					<!-- CONTENUTO -->
 
 				</div>
