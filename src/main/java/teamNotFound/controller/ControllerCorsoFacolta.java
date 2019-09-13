@@ -21,13 +21,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import teamNotFound.daoimpl.CorsoDao;
 import teamNotFound.daoimpl.FacoltaDao;
+import teamNotFound.daoimpl.RuoloDao;
 import teamNotFound.model.Cattedra;
 import teamNotFound.model.Corso;
 import teamNotFound.model.Facolta;
+import teamNotFound.model.Ruolo;
 
 @Controller
 public class ControllerCorsoFacolta {
 
+	@Autowired
+	RuoloDao ruoloDao;
 	@Autowired
 	CorsoDao corsoDao;
 	@Autowired
@@ -39,14 +43,14 @@ public class ControllerCorsoFacolta {
 		model.addAttribute("corsi", corsoDao.getAll());
 		model.addAttribute("newFacolta", new Facolta());
 		model.addAttribute("newCorso", new Corso());
+		model.addAttribute("newRuolo", new Ruolo());
 
 		return "corsiFacolta/corsoFacoltaForm";
 	}
 
 
 	@RequestMapping(value="/inserimentoCorso", method=RequestMethod.POST)
-	public String insCorPost(@Valid Corso corso, BindingResult result, ModelMap model) {
-		model.addAttribute("newCorso", new Corso());
+	public String insCorPost(@Valid Corso corso, BindingResult result) {
 
 		if (result.hasErrors()) {
 			System.out.println("Errore");
@@ -69,7 +73,6 @@ public class ControllerCorsoFacolta {
 
 	@RequestMapping(value="/inserimentoFacolta", method=RequestMethod.POST)
 	public String insFacPost(@Valid Facolta facolta, BindingResult result, ModelMap model) {
-		model.addAttribute("newFacolta", new Facolta());
 
 		if (result.hasErrors()) {
 			System.out.println("Errore");
@@ -126,5 +129,19 @@ public class ControllerCorsoFacolta {
 		model.addAttribute("corsi", corsoDao.getAll());
 
 		return "corsiFacolta/facolta";		
+	}
+	
+	@PostMapping("/Ruolo")
+	public String insRuolo(@Valid Ruolo ruolo, BindingResult result, ModelMap model) {
+
+		if (result.hasErrors()) {
+			System.out.println("Errore");
+			return "corsiFacoltaForm";
+
+		}else {
+			ruoloDao.inserimento(ruolo);
+			return "redirect:/CorsoFacolta";
+		}
+		
 	}
 }

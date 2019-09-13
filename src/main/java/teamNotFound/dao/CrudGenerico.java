@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 @Transactional
-public abstract class CrudGenerico<T,K>{
+public abstract class CrudGenerico<T,K> implements CRUDInterface<T, K>{
 	
 	@PersistenceContext
 	protected EntityManager entity;
