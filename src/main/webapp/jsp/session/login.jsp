@@ -27,7 +27,7 @@
                   </div>
                   </c:when>
 					<c:otherwise>
-					<form:form action="Login" method="post" class="user" modelAttribute="account">
+					<form:form action="Login" method="post" class="user" modelAttribute="logAccount">
 						<form:label path="username">Username: </form:label><br>
 						<form:input path="username"/>
 						<form:errors path="username"/><br>
