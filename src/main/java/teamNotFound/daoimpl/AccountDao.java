@@ -2,12 +2,11 @@ package teamNotFound.daoimpl;
 
 import org.springframework.stereotype.Repository;
 
-import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Account;
 
 @Repository
-public class AccountDao extends CrudGenerico<Account, Integer> implements CRUDInterface<Account , Integer> {
+public class AccountDao extends CrudGenerico<Account, Integer> {
 	
 	public AccountDao () {
 		this.classeT=Account.class;

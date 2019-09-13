@@ -2,12 +2,11 @@ package teamNotFound.daoimpl;
 
 import org.springframework.stereotype.Repository;
 
-import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Prenotazione;
 
 @Repository
-public class PrenotazioneDao extends CrudGenerico<Prenotazione, Integer> implements CRUDInterface<Prenotazione , Integer>{
+public class PrenotazioneDao extends CrudGenerico<Prenotazione, Integer>{
 
 	public PrenotazioneDao () {
 		this.classeT=Prenotazione.class;

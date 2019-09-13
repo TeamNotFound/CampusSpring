@@ -2,9 +2,7 @@ package teamNotFound.daoimpl;
 
 import org.springframework.stereotype.Repository;
 
-import org.springframework.stereotype.Repository;
 
-import teamNotFound.dao.CRUDInterface;
 import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Studente;
 
@@ -14,7 +12,7 @@ import teamNotFound.model.Studente;
 
 @Repository
 
-public class StudenteDao extends CrudGenerico<Studente, Integer> implements CRUDInterface<Studente , Integer>{
+public class StudenteDao extends CrudGenerico<Studente, Integer> {
  
 
 
