@@ -73,16 +73,25 @@
 				<div class="card-body">
 
 					<!-- INSERIRE CONTENUTO -->
-					<form:form action="CorsiFacolta" method="post" >
+					<form:form action="corso-facolta" method="post" >
 					
-						<label path="facolta">Facolta: </label>
-  						<select path="facolta">
-  						<options items="${facolta}"/>
+						<label for="facoltaId">Facolta: </label>
+  						<select name="facoltaId">
+  						<c:forEach items="${facolta}" var="f">
+  						<option value="${f.id}"> 
+  						${f.facolta}
+  						 </option>
+  			
+  						</c:forEach>
   						</select>
-						
-							<label path="corsi">Corsi: </label>
-  						<select path="corsi">
-  						<options items="${corsi}"/>
+  						<label for="corsoId">Corso</label>
+  						<select name="corsoId">
+						<c:forEach items="${corsi}" var="c">
+  						<option value="${c.id}"> 
+  						${c.corso}
+  						 </option>
+  			
+  						</c:forEach>
   						</select>
   						
 						 <input class="btn btn-success btn-icon-split"

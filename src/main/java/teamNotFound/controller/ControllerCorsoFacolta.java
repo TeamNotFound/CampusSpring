@@ -1,19 +1,25 @@
 package teamNotFound.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import teamNotFound.daoimpl.CorsoDao;
 import teamNotFound.daoimpl.FacoltaDao;
+import teamNotFound.model.Cattedra;
 import teamNotFound.model.Corso;
 import teamNotFound.model.Facolta;
 
@@ -51,7 +57,7 @@ public class ControllerCorsoFacolta {
 
 
 	@RequestMapping(value="/rimuoviCorso/{composedId}", method=RequestMethod.POST)
-	public String rimCorPost( @PathVariable String composedId, @RequestParam Integer corsoId, @RequestParam Integer facoltaId, @RequestParam Integer profId) {
+	public String rimCorPost( @RequestParam Integer corsoId, @RequestParam Integer facoltaId, @RequestParam Integer profId) {
 
 		Corso corso = corsoDao.getById(corsoId);
 		corsoDao.remove(corso);
@@ -90,5 +96,32 @@ public class ControllerCorsoFacolta {
 			facoltaDao.getAll();
 			return "redirect:/corsiFacoltaForm";
 		}
+	}
+
+	@PostMapping("corso-facolta")
+	public String addCorsoFacolta (@RequestParam Integer corsoId, @RequestParam Integer facoltaId) {
+		Facolta facolta = facoltaDao.getByIdWithCorsi(facoltaId);
+		Corso corso = corsoDao.getById(corsoId);
+		facolta.addCorso(corso);
+		facoltaDao.update(facolta);
+		return "redirect:/Facolta/"+facoltaId;
+
+	}
+
+	@GetMapping("Facolta/{id}")
+	public String showFacolta (@PathVariable Integer id, Model model) {
+
+		Facolta f = facoltaDao.getByIdWithCorsiAndCattedre(id);
+
+		HashMap<Integer, Cattedra> cattedre = new HashMap<Integer, Cattedra>();
+		for(Cattedra pc : f.getCattedre()) {
+			cattedre.put(pc.getCorso().getId(), pc);
+		}
+
+		model.addAttribute("cattedre", cattedre);
+		model.addAttribute("facolta", f);
+		model.addAttribute("corsi", corsoDao.getAll());
+
+		return "corsiFacolta/facolta";		
 	}
 }
