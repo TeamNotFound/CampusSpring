@@ -21,8 +21,7 @@ public class Ruolo {
 	@Column
 	@NotEmpty(message = "Inserire Ruolo")
 	private String ruolo;
-	@OneToMany
-	private Account account;
+	
 
 	public int getId() {
 		return id;

@@ -1,5 +1,7 @@
 package teamNotFound.daoimpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import teamNotFound.dao.CrudGenerico;
@@ -8,6 +10,9 @@ import teamNotFound.model.Account;
 @Repository
 public class AccountDao extends CrudGenerico<Account, Integer> {
 	
+	@Autowired
+	BCryptPasswordEncoder cripta;
+	@Autowired
 	public AccountDao () {
 		this.classeT=Account.class;
 	}
@@ -24,4 +29,16 @@ public class AccountDao extends CrudGenerico<Account, Integer> {
 			return null;
 		}
 	}
+	public void inserimentoAcc(Account a) {
+		// TODO Auto-generated method stub
+		a.getUsername();
+		a.getPassword();
+		//Cirpta la password dell'utente passato
+		a.setPassword(cripta.encode(a.getPassword()));
+		entity.persist(a);
+		entity.flush();
+		entity.clear();
+	}
+
+	
 }
