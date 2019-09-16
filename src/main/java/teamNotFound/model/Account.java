@@ -25,41 +25,105 @@ public class Account {
 	private Utente utente;
 	
 	@ManyToOne
+	@JoinColumn(name = "ruolo_id")
 	private Ruolo ruolo;
-	
-	public Utente getUtente() {
-		return utente;
-	}
-	public void setUtente(Utente utente) {
-		this.utente = utente;
-	}
+	 
+
+
 	public int getId() {
 		return id;
 	}
+
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
 	public String getUsername() {
 		return username;
 	}
+
+
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
+
 	public String getPassword() {
 		return password;
 	}
+
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
+	public Utente getUtente() {
+		return utente;
+	}
+
+
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+
+
+
+	public Ruolo getRuolo() {
+		return ruolo;
+	}
+
+
+
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
+	}
+
+
+
+	public Account(int id, @NotEmpty(message = "Inserire username") String username,
+			@NotEmpty(message = "Inserire password") String password, Utente utente, Ruolo ruolo) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.utente = utente;
+		this.ruolo = ruolo;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", utente=" + utente
+				+ ", ruolo=" + ruolo + "]";
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((ruolo == null) ? 0 : ruolo.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((utente == null) ? 0 : utente.hashCode());
 		return result;
 	}
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,23 +140,26 @@ public class Account {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (ruolo == null) {
+			if (other.ruolo != null)
+				return false;
+		} else if (!ruolo.equals(other.ruolo))
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
 		} else if (!username.equals(other.username))
 			return false;
+		if (utente == null) {
+			if (other.utente != null)
+				return false;
+		} else if (!utente.equals(other.utente))
+			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", username=" + username + ", password=" + password + "]";
-	}
-	public Account(int id, String username, String password) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-	}
+
+
+
 	public Account() {
 		super();
 	}
