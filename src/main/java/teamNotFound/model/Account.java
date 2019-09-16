@@ -11,11 +11,9 @@ public class Account {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
 	@Column(unique = true)
 	@NotEmpty(message = "Inserire username")
 	private String username;
-	
 	
 	@Column
 	@NotEmpty(message="Inserire password")
@@ -24,7 +22,9 @@ public class Account {
 	@OneToOne(mappedBy = "account")
 	private Utente utente;
 	
+	//DA CAMBIARE 
 	@ManyToOne
+	@JoinColumn(name="ruolo_id")
 	private Ruolo ruolo;
 	
 	public Utente getUtente() {
@@ -50,6 +50,13 @@ public class Account {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Ruolo getRuolo() {
+		return ruolo;
+	}
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
 	}
 	@Override
 	public int hashCode() {
@@ -96,10 +103,5 @@ public class Account {
 	public Account() {
 		super();
 	}
-	
-
-	
-	
-	
 
 }

@@ -51,19 +51,25 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
-		<dependency>
-			<groupId>org.mindrot</groupId>
-			<artifactId>jbcrypt</artifactId>
-			<version>0.4</version>
-		</dependency>
-		
 		<!-- To run as Spring Boot App -->
 		 <dependency>
         	<groupId>org.apache.tomcat</groupId>
         	<artifactId>tomcat-jasper</artifactId>
         	<version>9.0.16</version>
     	 </dependency>
+    	 
+    	 <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>	
+		</dependency>
 	</dependencies>
 
 	<build>

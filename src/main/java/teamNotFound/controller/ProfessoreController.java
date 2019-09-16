@@ -4,14 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import teamNotFound.config.BCryptUtil;
 import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.model.Account;
 import teamNotFound.model.Professore;
@@ -21,8 +20,8 @@ public class ProfessoreController {
 
 	@Autowired
 	private ProfessoreDao professoreDao;
-	@Autowired 
-	private BCryptUtil bCryptUtil;
+	@Autowired
+	private BCryptPasswordEncoder cript;
 	
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
@@ -34,7 +33,6 @@ public class ProfessoreController {
 	public String newProfessore(HttpServletRequest request, Model model) {
 		if((boolean) request.getSession().getAttribute("rettore")) {
 			model.addAttribute("professore", new Professore());
-
 			return "professore/profForm";
 		} else {
 			return "redirect:/Login";
@@ -46,7 +44,7 @@ public class ProfessoreController {
 		if(result.hasErrors()) {
 			return "professore/profForm";
 		}else {
-			professore.getAccount().setPassword(bCryptUtil.hashPsw(professore.getAccount().getPassword()));
+			professore.getAccount().setPassword(cript.encode(professore.getAccount().getPassword()));
 			professoreDao.inserimento(professore);
 			return "redirect:/GestioneProfessori";
 		}
