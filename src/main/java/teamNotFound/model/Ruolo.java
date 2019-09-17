@@ -1,7 +1,10 @@
 package teamNotFound.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,12 +20,10 @@ public class Ruolo {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
 	@Column
 	@NotEmpty(message = "Inserire Ruolo")
 	private String ruolo;
-	@OneToMany
-	private Account account;
+	
 
 	public int getId() {
 		return id;
