@@ -20,27 +20,21 @@
               <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
               <div class="col-lg-6">
                 <div class="p-5">
-                <c:choose>
-					<c:when test="${username != null}">					
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome ${username}!</h1>
-                  </div>
-                  </c:when>
-					<c:otherwise>
-					<form:form action="login" method="post" class="user" modelAttribute="logAccount">
-						<form:label path="username">Username: </form:label><br>
-						<form:input path="username"/>
-						<form:errors path="username"/><br>
+                
+                	<c:if test="${param.error != null}">
+                		Username o Password incorretti
+                	</c:if>
+                	
+					<form:form action="login" method="post">
+						<label for="username">Username: </label><br>
+						<input type="text" name="username"/><br>
 						
-						<form:label path="password">Password: </form:label><br>
-						<form:password path="password"/>
-						<form:errors path="password"/><br><br>
+						<label for="password">Password: </label><br>
+						<input type="password" name="password"/><br>
 					
 						<input class="btn btn-success btn-icon-split" type="submit" value="Accedi"/>
 					</form:form>
 					
-					</c:otherwise>
-					</c:choose>
                 </div>
               </div>
             </div>
