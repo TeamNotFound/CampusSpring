@@ -21,7 +21,7 @@
                 <div class="card-body">
 					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post" modelAttribute="cattedra">
   					
-  				<!--  	<form:label path="professore">Professore: </form:label>
+  				<%--  	<form:label path="professore">Professore: </form:label>
   						<form:select path="professore">
   						<form:options items="${professori}" itemLabel="nome"/>
   						</form:select>
@@ -34,7 +34,7 @@
   							<form:label path="corso">Corso: </form:label>
   						<form:select path="corso">
   						<form:options items="${corsi}" itemLabel="corso"/>
-  						</form:select>    -->
+  						</form:select>    --%>
   						
   						<label for="facolta">Facolta: </label>
   						<select name="facolta">

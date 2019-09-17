@@ -22,7 +22,6 @@
 
   <!-- Custom styles for this template-->
   <link href="/jsp/templates/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
-	<%@ include file="/jsp/templates/header.jspf" %>
 </head>
 
 <body class="bg-gradient-primary">
