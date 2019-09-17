@@ -20,16 +20,6 @@
 				</div>
 				<div class="card-body">
 
-					<!-- INSERIRE CONTENUTO -->
-					<form:form  action="${pageContext.request.contextPath }/Ruolo" method="post" modelAttribute="newRuolo">
-						<form:label path="ruolo">Ruolo: </form:label><br> 
-						<form:input path="ruolo"/><br>
-						<form:errors path="ruolo"/>
-						
-							<input class="btn btn-success btn-icon-split" type="submit" />
-					</form:form>
-					<!-- CONTENUTO -->
-
 		<!-- Content Column -->
 		<div class="col-lg-12 mb-4">
 			<!-- Approach -->
