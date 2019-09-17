@@ -37,8 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		//	.antMatchers("/FacoltaCorsi").hasRole("PROFESSORE")
-			.antMatchers("/**").permitAll()
+			.antMatchers("/FacoltaCorsi").hasRole("PROFESSORE")
 			
 			.antMatchers("/inserimentoCatterdra").hasRole("RETTORE")
 			.antMatchers("/rimuoviCattedra").hasRole("RETTORE")
@@ -75,8 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/Esami/Cattedra/**").hasRole("STUDENTE")
 			.antMatchers("/Esami/Visualizza").hasRole("STUDENTE")
 			
-			
-			
+			.antMatchers("/**").permitAll()
 		.and().formLogin() 
 			.loginPage("/login")
 			.loginProcessingUrl("/login")
