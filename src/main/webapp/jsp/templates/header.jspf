@@ -133,9 +133,9 @@
       <sec:authorize access="isAuthenticated()">
       
 		<li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Logout</span></a>
+		<form action="${pageContext.request.contextPath}/logout" method="post">
+          <input class="nav-link" type="submit" value="Logout" />
+        </form>
       </li>
       
       </sec:authorize>
