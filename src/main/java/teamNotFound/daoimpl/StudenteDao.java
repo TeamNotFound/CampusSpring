@@ -2,12 +2,7 @@ package teamNotFound.daoimpl;
 
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-import teamNotFound.dao.CRUDInterface;
-=======
-
->>>>>>> branch 'master' of https://github.com/TeamNotFound/CampusSpring
-	import teamNotFound.dao.CrudGenerico;
+import teamNotFound.dao.CrudGenerico;
 import teamNotFound.model.Studente;
 
 @Repository
