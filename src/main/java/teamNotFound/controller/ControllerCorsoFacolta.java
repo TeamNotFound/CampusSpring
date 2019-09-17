@@ -77,7 +77,7 @@ public class ControllerCorsoFacolta {
 			return "corsiFacolta/corsoFacoltaForm";
 		}else {
 			facoltaDao.inserimento(facolta);
-			return "redirect:/";
+			return "redirect:/CorsoFacolta";
 		}
 	}
 

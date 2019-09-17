@@ -92,7 +92,7 @@ public class HomeController {
 			studente.getAccount().setRuolo(ruolo);
 			
 			studenteDao.inserimento(studente);
-			return "redirect:/Login";
+			return "redirect:/login";
 		}
 	}
 	

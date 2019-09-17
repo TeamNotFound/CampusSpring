@@ -1,5 +1,6 @@
 package teamNotFound.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.DataAppelloDao;
 import teamNotFound.daoimpl.EsameDao;
 import teamNotFound.daoimpl.PrenotazioneDao;
@@ -35,6 +37,8 @@ public class EsameController {
 	private PrenotazioneDao prenotazioneDao;
 	@Autowired
 	private ProfessoreDao professoreDao;
+	@Autowired
+	private AccountDao accountDao;
 	
 	@GetMapping("/Esami/Data/{id}")
 	public String newEsame(@PathVariable Integer id,Model model) {
@@ -66,8 +70,8 @@ public class EsameController {
 	}
 	
 	@GetMapping("/Esami/Cattedre")
-	public String selezionaCattedre(HttpServletRequest request,Model model) {
-		Account a=(Account)request.getSession().getAttribute("account");
+	public String selezionaCattedre(Model model, Principal principal) {
+		Account a= accountDao.getByUsername(principal.getName());
 		Professore p = (Professore) a.getUtente();
 		
 		p = professoreDao.getByIdWithCorsi(p.getId());
