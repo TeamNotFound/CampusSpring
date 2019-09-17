@@ -105,7 +105,7 @@ public class ControllerCorsoFacolta {
 		}
 	}
 
-	@PostMapping("corso-facolta")
+	@PostMapping("/corso-facolta")
 	public String addCorsoFacolta (@RequestParam Integer corsoId, @RequestParam Integer facoltaId) {
 		Facolta facolta = facoltaDao.getByIdWithCorsi(facoltaId);
 		Corso corso = corsoDao.getById(corsoId);
@@ -115,7 +115,7 @@ public class ControllerCorsoFacolta {
 
 	}
 
-	@GetMapping("Facolta/{id}")
+	@GetMapping("/Facolta/{id}")
 	public String showFacolta (@PathVariable Integer id, Model model) {
 
 		Facolta f = facoltaDao.getByIdWithCorsiAndCattedre(id);

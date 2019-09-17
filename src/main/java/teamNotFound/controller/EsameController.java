@@ -92,7 +92,7 @@ public class EsameController {
 		return "esame/selezioneDataAppelloEsami";
 	}
 	
-	@GetMapping("Esami/Visualizza")
+	@GetMapping("/Esami/Visualizza")
 	public String visualizzaEsami(HttpServletRequest request, Model model) {
 		Account a = (Account) request.getSession().getAttribute("account");
 		Studente s = (Studente) a.getUtente();

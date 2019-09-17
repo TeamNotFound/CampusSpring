@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,8 +40,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/FacoltaCorsi").hasRole("PROFESSORE")
-			.antMatchers("/**").permitAll()			
+		//	.antMatchers("/FacoltaCorsi").hasRole("PROFESSORE")
+			.antMatchers("/**").permitAll()
+			
+			.antMatchers("/inserimentoCatterdra").hasRole("RETTORE")
+			.antMatchers("/rimuoviCattedra").hasRole("RETTORE")
+			.antMatchers("/rimuoviCattedra/**").hasRole("RETTORE")
+			
+			.antMatchers("/CorsoFacolta").hasRole("RETTORE")
+			.antMatchers("/inserimentoCorso").hasRole("RETTORE")
+			.antMatchers("/rimuoviCorso").hasRole("RETTORE")
+			.antMatchers("/rimuoviCorso/**").hasRole("RETTORE")
+			.antMatchers("/inserimentoFacolta").hasRole("RETTORE")
+			.antMatchers("/rimuoviFacolta").hasRole("RETTORE")
+			.antMatchers("/rimuoviFacolta/**").hasRole("RETTORE")
+			.antMatchers("/visualizza").hasRole("RETTORE")
+			.antMatchers("/corso-facolta").hasRole("RETTORE")
+			.antMatchers("/Facolta").hasRole("RETTORE")
+			.antMatchers("/Facolta/**").hasRole("RETTORE")
+			.antMatchers("/Ruolo").hasRole("RETTORE")
+			
+			.antMatchers("/GestioneProfessori").hasRole("RETTORE")
+			.antMatchers("/InserimentoProfessore").hasRole("RETTORE")
+			.antMatchers("/Professore/Rimuovi/**").hasRole("RETTORE")
+			.antMatchers("/Professore/Promuovi/**").hasRole("RETTORE")
+			
+			.antMatchers("/AppelloInserimento/**").hasAnyRole("RETTORE","PROFESSORE")
+			
+			.antMatchers("/Prenotazione/Corso/**").hasRole("STUDENTE")
+			.antMatchers("/PrenotazioneDelete").hasRole("STUDENTE")
+			.antMatchers("/Prenotazione/PrenotazioneEsame/**").hasRole("STUDENTE")
+			.antMatchers("/Prenotazione").hasRole("STUDENTE")
+			.antMatchers("/PrenotazioneVisualizza").hasRole("STUDENTE")
+			
+			.antMatchers("/Esami/Data/**").hasAnyRole("RETTORE","PROFESSORE")
+			.antMatchers("/Esami/Cattedre").hasRole("STUDENTE")
+			.antMatchers("/Esami/Cattedra/**").hasRole("STUDENTE")
+			.antMatchers("/Esami/Visualizza").hasRole("STUDENTE")
+			
+			
+			
 		.and().formLogin() 
 			.loginPage("/login")
 			.loginProcessingUrl("/login")
