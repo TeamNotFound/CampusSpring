@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import teamNotFound.daoimpl.ProfessoreDao;
+import teamNotFound.daoimpl.RuoloDao;
 import teamNotFound.model.Account;
 import teamNotFound.model.Professore;
+import teamNotFound.model.Ruolo;
 
 @Controller
 public class ProfessoreController {
@@ -22,6 +24,8 @@ public class ProfessoreController {
 	private ProfessoreDao professoreDao;
 	@Autowired
 	private BCryptPasswordEncoder cript;
+	@Autowired
+	private RuoloDao ruoloDao;
 	
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
@@ -45,6 +49,10 @@ public class ProfessoreController {
 			return "professore/profForm";
 		}else {
 			professore.getAccount().setPassword(cript.encode(professore.getAccount().getPassword()));
+			
+			Ruolo ruolo = ruoloDao.getByName("PROFESSORE");
+			professore.getAccount().setRuolo(ruolo);
+			
 			professoreDao.inserimento(professore);
 			return "redirect:/GestioneProfessori";
 		}
