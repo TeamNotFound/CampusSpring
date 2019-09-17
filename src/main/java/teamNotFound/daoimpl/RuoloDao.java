@@ -12,7 +12,11 @@ public class RuoloDao extends CrudGenerico<Ruolo, Integer> {
 	}
 
 	public Ruolo getByName(String nome) {
-		return entity.createQuery("select a from Ruolo a where a.ruolo = :ruolo" , Ruolo.class)
+		try {
+			return entity.createQuery("select a from Ruolo a where a.ruolo = :ruolo" , Ruolo.class)
 					.setParameter("ruolo", nome).getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
