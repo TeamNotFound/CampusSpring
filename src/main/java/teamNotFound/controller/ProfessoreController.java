@@ -1,5 +1,7 @@
 package teamNotFound.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -11,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.daoimpl.RuoloDao;
 import teamNotFound.model.Account;
@@ -26,6 +30,8 @@ public class ProfessoreController {
 	private BCryptPasswordEncoder cript;
 	@Autowired
 	private RuoloDao ruoloDao;
+	@Autowired
+	private AccountDao ad;
 	
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
@@ -34,13 +40,9 @@ public class ProfessoreController {
 	}
 
 	@GetMapping("/InserimentoProfessore")
-	public String newProfessore(HttpServletRequest request, Model model) {
-		if((boolean) request.getSession().getAttribute("rettore")) {
+	public String newProfessore(Model model, Principal principal) {
 			model.addAttribute("professore", new Professore());
 			return "professore/profForm";
-		} else {
-			return "redirect:/Login";
-		}
 	}
 
 	@PostMapping("/InserimentoProfessore")

@@ -69,9 +69,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/Prenotazione").hasRole("STUDENTE")
 			.antMatchers("/PrenotazioneVisualizza").hasRole("STUDENTE")
 			
-			.antMatchers("/Esami/Data/**").hasAnyRole("RETTORE","PROFESSORE")
-			.antMatchers("/Esami/Cattedre").hasRole("STUDENTE")
-			.antMatchers("/Esami/Cattedra/**").hasRole("STUDENTE")
+			.antMatchers("/Esami/Data/**").hasRole("STUDENTE")
+			.antMatchers("/Esami/Cattedre").hasAnyRole("RETTORE","PROFESSORE")
+			.antMatchers("/Esami/Cattedra/**").hasAnyRole("RETTORE","PROFESSORE")
 			.antMatchers("/Esami/Visualizza").hasRole("STUDENTE")
 			
 			.antMatchers("/**").permitAll()
