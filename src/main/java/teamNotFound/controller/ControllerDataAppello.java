@@ -1,5 +1,6 @@
 package teamNotFound.controller;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,12 +8,15 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.CorsoDao;
 import teamNotFound.daoimpl.DataAppelloDao;
 import teamNotFound.daoimpl.FacoltaDao;
@@ -32,11 +36,14 @@ public class ControllerDataAppello {
 		private FacoltaDao facoltaDao;
 		@Autowired
 		private CorsoDao corsoDao;
+		@Autowired
+		AccountDao ad;
 
 		@GetMapping("/AppelloInserimento")
-		public String InserisciAppello(HttpServletRequest request, Model model) {
+		public String InserisciAppello(HttpServletRequest request, Model model, Principal principal) {
 			model.addAttribute("dataAppello", new DataAppello());
-			Utente u = ((Account) request.getSession().getAttribute("account")).getUtente();
+			Account a = ad.getByUsername(principal.getName());
+			Utente u =a.getUtente();
 			model.addAttribute("cattedre", professoreDao.getByIdWithCorsi(u.getId()).getCattedra());
 			return "/dataAppello/dataAppelloForm";
 		}
