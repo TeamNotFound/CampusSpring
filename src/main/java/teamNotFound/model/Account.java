@@ -19,7 +19,7 @@ public class Account {
 	@NotEmpty(message="Inserire password")
 	private String password;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	private Utente utente;
 	
 	//DA CAMBIARE 

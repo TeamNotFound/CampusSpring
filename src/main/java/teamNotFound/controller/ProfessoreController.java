@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,7 @@ public class ProfessoreController {
 	@Autowired
 	private RuoloDao ruoloDao;
 	@Autowired
-	private AccountDao ad;
+	AccountDao ad;
 	
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
@@ -61,25 +62,26 @@ public class ProfessoreController {
 	}
 	
 	@GetMapping("/Professore/Promuovi/{id}")
-	public String promuoviProfessore(@PathVariable Integer id, HttpServletRequest request) {
-		Account a = (Account) request.getSession().getAttribute("account");
-		Professore rettore = (Professore)a.getUtente();
+	public String promuoviProfessore(@PathVariable Integer id, Principal principal) {
 		
-		Professore professore=professoreDao.getById(id);
+		Ruolo rett = ruoloDao.getById(1);
+		Ruolo prof = ruoloDao.getById(2);
 		
-		rettore.setRettore(false);
-		professore.setRettore(true);
+		Account a = ad.getById(professoreDao.getById(id).getAccount().getId());
+		a.setRuolo(rett);
+		ad.update(a);
 		
-		professoreDao.update(rettore);
-		professoreDao.update(professore);
+		Account rettore = ad.getByUsername(principal.getName());
+		rettore.setRuolo(prof);
+		ad.update(rettore);
 		
-		request.getSession().invalidate();
+		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
 		
-		return "redirect:/Login";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/Professore/Rimuovi/{id}")
-	public String eliminaProfessore(@PathVariable Integer id) {
+	public String eliminaProfessore(@PathVariable("id") Integer id) {
 		professoreDao.remove(professoreDao.getById(id));
 		
 		return "redirect:/GestioneProfessori";
