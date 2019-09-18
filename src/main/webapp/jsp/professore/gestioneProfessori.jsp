@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 <title>Gestione Professori</title>
@@ -30,14 +31,14 @@
 						<c:forEach items="${professori}" var="p">
 							<tr>
 								<td>${p.nome}${p.cognome}</td>
-								<td><c:if test="${!p.rettore}">
-
-										<a href="/Campus/Professore/Rimuovi/${p.id}">Rimuovi</a>
+								
+								<td><c:if test="${p.account.ruolo.ruolo eq 'RETTORE'}">
+										<a href="${pageContext.request.contextPath}/Professore/Rimuovi/${p.id}">Rimuovi</a>
 
 									</c:if></td>
-								<td><c:if test="${!p.rettore}">
+								<td><c:if test="${p.account.ruolo.ruolo eq 'RETTORE'}">
 
-										<a href="/Campus/Professore/Promuovi/${p.id}">Promuovi</a>
+										<a href="${pageContext.request.contextPath}/Professore/Promuovi/${p.id}">Promuovi</a>
 
 									</c:if></td>
 								
