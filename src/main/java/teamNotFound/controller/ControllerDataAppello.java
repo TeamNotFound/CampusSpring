@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.CorsoDao;
@@ -46,18 +47,19 @@ public class ControllerDataAppello {
 			return "/dataAppello/dataAppelloForm";
 		}
 		
-		@PostMapping(value="/AppelloInserimento")
-		public String InserimentoAppello(@PathVariable String id, HttpServletRequest request) {
+		@PostMapping(value="/AppelloInserimento/{id}")
+		public String InserimentoAppello(@PathVariable String id, @RequestParam String date, Principal principal) {
 			DataAppello dataAppello = new DataAppello();
 			String[] values=id.split("-");
 			
-			Professore pf = (Professore) ((Account) request.getSession().getAttribute("account")).getUtente();
+			Account a = ad.getByUsername(principal.getName());
+			Professore pf = professoreDao.getById(a.getUtente().getId());
 			dataAppello.setProfessore(pf);
 			
-			String param = request.getParameter("data");
+			//String param = request.getParameter("data");
 			Date dataDaInserire = null;
 			try {
-				dataDaInserire = new SimpleDateFormat("yy-MM-dd").parse(param);
+				dataDaInserire = new SimpleDateFormat("yy-MM-dd").parse(date);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -69,8 +71,8 @@ public class ControllerDataAppello {
 			if(dataDaInserire != null) {
 				dataAppello.setDataAppello(dataDaInserire);
 				dataAppelloDao.inserimento(dataAppello);
-				String uri=request.getContextPath();
-				return "redirect:"+(uri+"/Home");
+				//String uri=request.getContextPath();
+				return "redirect:/";
 			}else
 			{
 				return "redirect:/AppelloInserimento";

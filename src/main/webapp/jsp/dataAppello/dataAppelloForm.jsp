@@ -31,7 +31,7 @@
 
 
 
-					<form:form action="AppelloInserimento" method="post" modelAttribute="dataAppello">
+					<form:form action="${pageContext.request.contextPath}/AppelloInserimento" method="post" modelAttribute="dataAppello">
 
 						<select name="cattedra">
 							<c:forEach items="${cattedre}" var="c">
