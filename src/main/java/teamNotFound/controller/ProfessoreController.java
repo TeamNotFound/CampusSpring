@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.daoimpl.RuoloDao;
 import teamNotFound.model.Account;
@@ -30,8 +29,6 @@ public class ProfessoreController {
 	private BCryptPasswordEncoder cript;
 	@Autowired
 	private RuoloDao ruoloDao;
-	@Autowired
-	private AccountDao ad;
 	
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
