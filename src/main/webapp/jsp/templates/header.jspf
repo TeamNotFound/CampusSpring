@@ -133,13 +133,14 @@
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
       
+      <hr class="sidebar-divider">
 		<li class="nav-item">
 		<form:form action="${pageContext.request.contextPath}/logout" method="post">
-          <button class="nav-link btn-light text-primary" 
-          style="border: none; font-family: 'Nunito'; font-size:15px" type="submit"><i class="fas fa-fw fa-table text-primary"></i>Logout</button>
+          <button class="nav-link btn-light" id="logout"
+           type="submit"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
         </form:form>
       </li>
-      
+      <hr class="sidebar-divider">
       </sec:authorize>
 	</ul>
         
