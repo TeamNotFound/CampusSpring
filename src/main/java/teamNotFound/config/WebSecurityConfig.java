@@ -74,6 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/Esami/Cattedra/**").hasAnyRole("RETTORE","PROFESSORE")
 			.antMatchers("/Esami/Visualizza").hasRole("STUDENTE")
 			
+			.antMatchers("/*.js").permitAll()
+			.antMatchers("/webapp/**").permitAll()
 			.antMatchers("/**").permitAll()
 		.and().formLogin() 
 			.loginPage("/login")
