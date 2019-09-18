@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,10 +31,12 @@ public class ControllerCattedra {
 	CorsoDao corsoDao;
 	@Autowired
 	FacoltaDao facoltaDao;
+	@Autowired
+	private SmartValidator validator;
 	
 	@RequestMapping(value="/inserimentoCattedra", method=RequestMethod.GET)
-	public  String insCatt(HttpServletRequest request, ModelMap model) {
- 
+	public  String insCatt(ModelMap model) {
+ 		
 		model.addAttribute("professori",professoreDao.getAll() );
 		model.addAttribute("facolta", facoltaDao.getAll());
 		model.addAttribute("corsi", corsoDao.getAll());
@@ -40,14 +44,24 @@ public class ControllerCattedra {
 	}
 	
 	@RequestMapping(value="/inserimentoCattedra", method=RequestMethod.POST)
-	public String insCattPost(@Valid Cattedra cattedra, BindingResult result, Model model) {
-		model.addAttribute("cattedra", new Cattedra());
+	public String insCattPost(Model model, @RequestParam("professore") Integer professoreId,
+																 @RequestParam("facolta") Integer facoltaId,
+																 @RequestParam("corso") Integer corsoId) {
+				
+		Cattedra cattedra = new Cattedra();
+		BindingResult result = new BeanPropertyBindingResult(cattedra, "cattedra");
+
+		cattedra.setFacolta(facoltaDao.getById(facoltaId));
+		cattedra.setCorso(corsoDao.getById(corsoId));
+		cattedra.setProfessore(professoreDao.getById(professoreId));
+		
+		
+		validator.validate(cattedra, result);
 		System.out.println(result.getAllErrors());
 		
 		if (result.hasErrors()) {
 			System.out.println("Errore"); 
-			model.addAttribute("cattedra", new Cattedra());
-	     return "redirect:/inserimentoCattedra";
+	     return "cattedra/cattedraForm";
 	
 		}else {
 			cattedradao.inserimento(cattedra);
@@ -55,16 +69,26 @@ public class ControllerCattedra {
 		}
 	}
 	
-	@RequestMapping(value="/rimuoviCattedra", method=RequestMethod.GET)
-	public  String rimCatt(HttpServletRequest request, ModelMap model) {
-		model.addAttribute("cattedra", new Cattedra());
+	@RequestMapping(value="/rimuoviCattedra/{composedId}", method=RequestMethod.GET)
+	public  String rimCatt(@PathVariable String composedId, ModelMap model) {
+		String ids[] = composedId.split("-");
+		System.out.println(ids[0]);
+		System.out.println(ids[1]);
+		System.out.println(ids[2]);
+		Cattedra cattedra = cattedradao.getByComposedId(Integer.parseInt(ids[0]),
+														Integer.parseInt(ids[1]), 
+														Integer.parseInt(ids[2]));
+		model.addAttribute("cattedra",cattedra);
 		return "cattedra/rimozioneCattedra";
 	}
 	
 	@RequestMapping(value="/rimuoviCattedra/{composedId}", method=RequestMethod.POST)
-	public String rimCattPost(@PathVariable String composedId, @RequestParam Integer corsoId, @RequestParam Integer facoltaId, @RequestParam Integer profId) {
+	public String rimCattPost(@PathVariable String composedId) {
 		
-		Cattedra cattedra = cattedradao.getByComposedId(corsoId,profId,facoltaId);
+		String ids[] = composedId.split("-");
+		Cattedra cattedra = cattedradao.getByComposedId(Integer.parseInt(ids[0]),
+														Integer.parseInt(ids[1]), 
+														Integer.parseInt(ids[2]));
 		cattedradao.remove(cattedra);
 		return "redirect:/";
 	}

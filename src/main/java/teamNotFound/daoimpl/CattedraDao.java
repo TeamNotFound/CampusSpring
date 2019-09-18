@@ -16,9 +16,9 @@ public class CattedraDao extends CrudGenerico<Cattedra, Integer>  {
 
 	public Cattedra getByComposedId(int id_corso,int id_professore, int id_facolta) {
 		try{
-			Cattedra cattedra = entity.createQuery("SELECT c FROM Cattedra c where c.facolta_id = :facolta "
-																	 + "c.corso_id = :corso "
-																	 + "c.professore_id = :professore", Cattedra.class)
+			Cattedra cattedra = entity.createQuery("SELECT c FROM Cattedra c where c.facolta.id = :facolta and "
+																	 + "c.corso.id = :corso and "
+																	 + "c.professore.id = :professore", Cattedra.class)
 			  .setParameter("facolta", id_facolta)
 			  .setParameter("corso", id_corso)
 			  .setParameter("professore", id_professore)
