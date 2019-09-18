@@ -47,6 +47,11 @@ public class EsameController {
 		return "esame/convalidaEsami";
 	}
 	
+	@GetMapping("/test")
+	public String prova() {
+		return "pippo";
+	}
+	
 	@PostMapping("/Esami/Data/{id}")
 	public String convalidaEsame(@PathVariable Integer id,HttpServletRequest request,Esame esame) {
 		DataAppello data = dataDao.getById(id);

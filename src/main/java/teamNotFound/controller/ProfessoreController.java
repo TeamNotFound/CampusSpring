@@ -33,7 +33,7 @@ public class ProfessoreController {
 	private RuoloDao ruoloDao;
 	@Autowired
 	AccountDao ad;
-	
+
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
 		model.addAttribute("professori", professoreDao.getAll());

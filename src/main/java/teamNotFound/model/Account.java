@@ -28,37 +28,25 @@ public class Account {
 
 	private Ruolo ruolo;
 	 
-
-
 	public int getId() {
 		return id;
 	}
-
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
 	public String getUsername() {
 		return username;
 	}
-
-
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
-
 	public String getPassword() {
 		return password;
 	}
-
-
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -68,25 +56,17 @@ public class Account {
 		return utente;
 	}
 
-
-
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
-
-
 
 	public Ruolo getRuolo() {
 		return ruolo;
 	}
 
-
-
 	public void setRuolo(Ruolo ruolo) {
 		this.ruolo = ruolo;
 	}
-
-
 
 	public Account(int id, @NotEmpty(message = "Inserire username") String username,
 			@NotEmpty(message = "Inserire password") String password, Utente utente, Ruolo ruolo) {
@@ -97,8 +77,6 @@ public class Account {
 		this.utente = utente;
 		this.ruolo = ruolo;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -117,8 +95,6 @@ public class Account {
 		result = prime * result + ((utente == null) ? 0 : utente.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -153,8 +129,6 @@ public class Account {
 			return false;
 		return true;
 	}
-
-
 
 	public Account() {
 		super();
