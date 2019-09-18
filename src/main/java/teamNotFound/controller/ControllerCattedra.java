@@ -71,6 +71,7 @@ public class ControllerCattedra {
 	
 	@RequestMapping(value="/rimuoviCattedra/{composedId}", method=RequestMethod.GET)
 	public  String rimCatt(@PathVariable String composedId, ModelMap model) {
+		
 		String ids[] = composedId.split("-");
 		System.out.println(ids[0]);
 		System.out.println(ids[1]);

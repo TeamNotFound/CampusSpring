@@ -118,6 +118,8 @@ public class ControllerCorsoFacolta {
 
 	@PostMapping("/corso-facolta")
 	public String addCorsoFacolta (@RequestParam Integer corsoId, @RequestParam Integer facoltaId) {
+		System.out.println("Entered");
+		
 		Facolta facolta = facoltaDao.getByIdWithCorsi(facoltaId);
 		Corso corso = corsoDao.getById(corsoId);
 		facolta.addCorso(corso);
