@@ -19,28 +19,13 @@
                   <h6 class="m-0 font-weight-bold text-primary">Assegnazione Professore</h6>
                 </div>
                 <div class="card-body">
-					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post" modelAttribute="cattedra">
-  					
-  				<%--  	<form:label path="professore">Professore: </form:label>
-  						<form:select path="professore">
-  						<form:options items="${professori}" itemLabel="nome"/>
-  						</form:select>
-  						
-  							<form:label path="facolta">Facolta: </form:label>
-  						<form:select path="facolta">
-  						<form:options items="${facolta}" itemLabel="facolta"/>
-  						</form:select>
-  						
-  							<form:label path="corso">Corso: </form:label>
-  						<form:select path="corso">
-  						<form:options items="${corsi}" itemLabel="corso"/>
-  						</form:select>    --%>
+					<form:form action="${pageContext.request.contextPath }/inserimentoCattedra" method="post">
   						
   						<label for="facolta">Facolta: </label>
   						<select name="facolta">
   						<c:forEach items="${facolta}" var="f">
-  						<option value="${f.id}"> 
-  						${f.facolta}
+  							<option value="${f.id}"> 
+  							${f.facolta}
   						 </option>
   			
   						</c:forEach>

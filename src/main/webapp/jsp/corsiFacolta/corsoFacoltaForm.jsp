@@ -82,7 +82,7 @@
 				<div class="card-body">
 
 					<!-- INSERIRE CONTENUTO -->
-					<form:form action="/corso-facolta" method="post" >
+					<form:form action="${pageContext.request.contextPath }/corso-facolta" method="post" >
 					
 						<label for="facoltaId">Facolta: </label>
   						<select name="facoltaId">
