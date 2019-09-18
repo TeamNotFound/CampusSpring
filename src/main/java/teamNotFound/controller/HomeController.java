@@ -38,7 +38,7 @@ public class HomeController {
 	private RuoloDao ruoloDao;
 	
 	@RequestMapping(value= {"/","/Home"})
-	public String index(HttpServletRequest request,ModelMap model) {
+	public String index(ModelMap model) {
 		if(professoreDao.getAll().isEmpty()) {
 			model.addAttribute("professore", new Professore());
 			return "redirect:/FirstAccess";

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.DataAppelloDao;
@@ -45,6 +47,11 @@ public class EsameController {
 		DataAppello data = dataDao.getByIdWithPrenotazioni(id);
 		model.addAttribute("prenotazioni",data.getPrenotazioni());
 		return "esame/convalidaEsami";
+	}
+	
+	@GetMapping("/test")
+	public String prova() {
+		return "pippo";
 	}
 	
 	@PostMapping("/Esami/Data/{id}")
