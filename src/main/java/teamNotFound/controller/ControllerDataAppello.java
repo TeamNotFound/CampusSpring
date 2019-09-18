@@ -38,7 +38,7 @@ public class ControllerDataAppello {
 		AccountDao ad;
 
 		@GetMapping("/AppelloInserimento")
-		public String InserisciAppello(HttpServletRequest request, Model model, Principal principal) {
+		public String InserisciAppello(Model model, Principal principal) {
 			model.addAttribute("dataAppello", new DataAppello());
 			Account a = ad.getByUsername(principal.getName());
 			Utente u =a.getUtente();
