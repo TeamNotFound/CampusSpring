@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.DataAppelloDao;
@@ -39,77 +40,72 @@ public class EsameController {
 	private ProfessoreDao professoreDao;
 	@Autowired
 	private AccountDao accountDao;
-	
+
 	@GetMapping("/Esami/Data/{id}")
 	public String newEsame(@PathVariable Integer id,Model model) {
 		DataAppello data = dataDao.getByIdWithPrenotazioni(id);
 		model.addAttribute("prenotazioni",data.getPrenotazioni());
 		return "esame/convalidaEsami";
 	}
-	
-	@GetMapping("/test")
-	public String prova() {
-		return "pippo";
-	}
-	
+
 	@PostMapping("/Esami/Data/{id}")
-	public String convalidaEsame(@PathVariable Integer id,HttpServletRequest request,Esame esame) {
+	public String convalidaEsame(@PathVariable Integer id,@RequestParam("studente") Integer studenteId, 
+														  @RequestParam("votoEsame") Integer votoEsame) {
+		Esame esame = new Esame();
+
 		DataAppello data = dataDao.getById(id);
-		
-		int id_studente = Integer.parseInt(request.getParameter("studente"));
-		Studente studente = studenteDao.getById(id_studente);
-		
+
+		Studente studente = studenteDao.getById(studenteId);
+
 		esame.setCorso(data.getCorso());
 		esame.setFacolta(data.getFacolta());
 		esame.setProfessore(data.getProfessore());
 		esame.setStudente(studente);
-		esame.setVotoEsame(Integer.parseInt(request.getParameter("votoEsame")));
-		
+		esame.setVotoEsame(votoEsame);
+
 		esameDao.inserimento(esame);
 
-		prenotazioneDao.remove(prenotazioneDao.getByComposedId(id_studente, id));
-		
-		String uri=request.getRequestURI();
-		
-		return "redirect:"+uri;
+		prenotazioneDao.remove(prenotazioneDao.getByComposedId(studenteId, id));
+
+		return "redirect:/Esami/Data/"+id;
 	}
-	
+
 	@GetMapping("/Esami/Cattedre")
 	public String selezionaCattedre(Model model, Principal principal) {
 		Account a= accountDao.getByUsername(principal.getName());
 		Professore p = (Professore) a.getUtente();
-		
+
 		p = professoreDao.getByIdWithCorsi(p.getId());
-		
+
 		model.addAttribute("cattedre",  p.getCattedra());
-		
+
 		return "esame/selezioneCattedreEsami";
 	}
-	
+
 	@GetMapping("/Esami/Cattedra/{composedId}")
 	public String selezionaDataAppelloEsami(@PathVariable String composedId,Model model) {
 		String[] ids=composedId.split("-");
-		
+
 		int id_professore = Integer.parseInt(ids[0]);
 		int id_facolta = Integer.parseInt(ids[1]);
 		int id_corso = Integer.parseInt(ids[2]);
-		
+
 		List<DataAppello> date = dataDao.getByProfessoreFacoltaAndCorso(id_professore, id_facolta, id_corso);
-		
+
 		model.addAttribute("date", date);
-		
+
 		return "esame/selezioneDataAppelloEsami";
 	}
-	
+
 	@GetMapping("/Esami/Visualizza")
 	public String visualizzaEsami(HttpServletRequest request, Model model) {
 		Account a = (Account) request.getSession().getAttribute("account");
 		Studente s = (Studente) a.getUtente();
-		
+
 		s = studenteDao.getByIdWithEsami(s.getId());
-		
+
 		model.addAttribute("esami", s.getEsami());
-		
+
 		return "esame/visualizzaEsami";
 	}
 }

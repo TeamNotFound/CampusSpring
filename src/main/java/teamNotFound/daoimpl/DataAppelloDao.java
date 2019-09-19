@@ -17,7 +17,7 @@ public class DataAppelloDao extends CrudGenerico<DataAppello, Integer>{
 
 	public List<DataAppello> getByFacoltaAndCorso(int idFacolta, int idCorso) {
 		try {			
-			List<DataAppello> appelli= entity.createQuery("select d from DataAppello d where d.facolta_id = :facolta and d.corso_id = :corso", DataAppello.class)
+			List<DataAppello> appelli= entity.createQuery("select d from DataAppello d where d.facolta.id = :facolta and d.corso.id = :corso", DataAppello.class)
 					.setParameter("facolta", idFacolta)
 					.setParameter("corso", idCorso)
 					.getResultList();
