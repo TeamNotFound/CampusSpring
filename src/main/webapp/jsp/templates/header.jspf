@@ -204,11 +204,12 @@
                 
                         
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+                <form:form action="${pageContext.request.contextPath}/logout" method="post">
+                <button class="dropdown-item">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
-                </a>
-                
+                </button>
+                </form:form>
               </div>
             </li>
 
