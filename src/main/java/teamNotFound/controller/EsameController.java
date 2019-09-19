@@ -109,13 +109,13 @@ public class EsameController {
 	}
 
 	@GetMapping("/Esami/Visualizza")
-	public String visualizzaEsami(HttpServletRequest request, Model model) {
-		Account a = (Account) request.getSession().getAttribute("account");
-		Studente s = (Studente) a.getUtente();
+	public String visualizzaEsami(Principal principal, Model model) {
+		Account account = accountDao.getByUsername(principal.getName());
+		Studente studente = (Studente) account.getUtente();
 
-		s = studenteDao.getByIdWithEsami(s.getId());
+		studente = studenteDao.getByIdWithEsami(studente.getId());
 
-		model.addAttribute("esami", s.getEsami());
+		model.addAttribute("esami", studente.getEsami());
 
 		return "esame/visualizzaEsami";
 	}
