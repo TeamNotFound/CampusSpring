@@ -15,8 +15,8 @@ public class PrenotazioneDao extends CrudGenerico<Prenotazione, Integer>{
 	
 	public Prenotazione getByComposedId(int id_studente, int id_data) {
 		try {
-				Prenotazione p = (Prenotazione) entity.createQuery("select p from Prenotazione p where p.studente_id = :studente "
-																+ "and p.data_appello_id = :data")
+				Prenotazione p = (Prenotazione) entity.createQuery("select p from Prenotazione p where p.studente.id = :studente "
+																+ "and p.dataAppello.id = :data")
 								.setParameter("studente", id_studente)
 								.setParameter("data", id_data)
 								.getResultList().get(0);

@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +43,8 @@ public class EsameController {
 	private ProfessoreDao professoreDao;
 	@Autowired
 	private AccountDao accountDao;
+	@Autowired
+	private SmartValidator validator;
 
 	@GetMapping("/Esami/Data/{id}")
 	public String newEsame(@PathVariable Integer id,Model model) {
@@ -63,11 +68,17 @@ public class EsameController {
 		esame.setStudente(studente);
 		esame.setVotoEsame(votoEsame);
 
-		esameDao.inserimento(esame);
-
-		prenotazioneDao.remove(prenotazioneDao.getByComposedId(studenteId, id));
-
+		
+		
+		BindingResult result = new BeanPropertyBindingResult(esame, "esame");
+		validator.validate(esame, result);
+		
+		if(!result.hasErrors()) {
+			esameDao.inserimento(esame);
+			prenotazioneDao.remove(prenotazioneDao.getByComposedId(studenteId, id));
+		}
 		return "redirect:/Esami/Data/"+id;
+
 	}
 
 	@GetMapping("/Esami/Cattedre")

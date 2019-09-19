@@ -16,8 +16,8 @@
 	<td>${prenotazione.studente.nome} ${prenotazione.studente.cognome}</td>
 	
 	<form:form action="${requestScope.requestURI}" method="post">
-		<input type="hidden" path="studente" value="${prenotazione.studente.id}"/>
-		<td><input path="votoEsame" type="number" min="18" max="30"/></td>
+		<input type="hidden" name="studente" value="${prenotazione.studente.id}"/>
+		<td><input name="votoEsame" type="number" min="18" max="30"/></td>
 		<td><input type="submit" value="Convalida"/></td>
 	</form:form>
 </tr>
