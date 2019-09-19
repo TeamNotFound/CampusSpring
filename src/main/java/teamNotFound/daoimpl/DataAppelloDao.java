@@ -31,7 +31,7 @@ public class DataAppelloDao extends CrudGenerico<DataAppello, Integer>{
 
 	public List<DataAppello> getByProfessoreFacoltaAndCorso(int idProfessore, int idFacolta, int idCorso) {
 		try {			
-			List<DataAppello> appelli= entity.createQuery("select d from DataAppello d where d.facolta_id = :facolta and d.corso_id = :corso and d.professore_id=:professore", DataAppello.class)
+			List<DataAppello> appelli= entity.createQuery("select d from DataAppello d where d.facolta.id = :facolta and d.corso.id = :corso and d.professore.id=:professore", DataAppello.class)
 					.setParameter("facolta", idFacolta)
 					.setParameter("corso", idCorso)
 					.setParameter("professore", idProfessore)

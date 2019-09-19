@@ -1,5 +1,6 @@
 package teamNotFound.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.DataAppelloDao;
 import teamNotFound.daoimpl.FacoltaDao;
 import teamNotFound.daoimpl.PrenotazioneDao;
@@ -38,6 +40,8 @@ public class PrenotazioneController {
 	private FacoltaDao facoltaDao;
 	@Autowired
 	private StudenteDao studenteDao;
+	@Autowired
+	private AccountDao accountDao;
 
 
 	@GetMapping("/Prenotazione/Corso/{id}")
@@ -104,19 +108,20 @@ public class PrenotazioneController {
 	}
 
 	@GetMapping("/Prenotazione")
-	public String prenotazioneFacolta(HttpServletRequest request,Model model) {
-		Account account =(Account) request.getSession().getAttribute("account");
+	public String prenotazioneFacolta(HttpServletRequest request,Model model, Principal principal) {
+		Account account = accountDao.getByUsername(principal.getName());
 		Studente studente = (Studente) account.getUtente();
+		
 		studente = studenteDao.getByIdWithPrenotazioniEsami(studente.getId());
 
-		Facolta f = facoltaDao.getByIdWithCorsi(studente.getFacolta().getId());
+		Facolta facolta = facoltaDao.getByIdWithCorsi(studente.getFacolta().getId());
 
 		List<Corso> corsiDaRimuovere = getCorsiDaRimuovere(studente);
 
 		for(Corso corso : corsiDaRimuovere) {
-			f.getCorsi().remove(corso);
+			facolta.getCorsi().remove(corso);
 		}
-		model.addAttribute("facolta", f);
+		model.addAttribute("facolta", facolta);
 
 		return "prenotazione/prenotazioniForm";
 	}
