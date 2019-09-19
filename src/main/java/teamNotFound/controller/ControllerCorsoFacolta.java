@@ -47,18 +47,18 @@ public class ControllerCorsoFacolta {
 	}
 
 
-	@RequestMapping(value="/inserimentoCorso", method=RequestMethod.POST)
-	public String insCorPost(@Valid Corso corso, BindingResult result) {
-
-		if (result.hasErrors()) {
-			System.out.println("Errore");
-			return "corsiFacoltaForm";
-
-		}else {
-			corsoDao.inserimento(corso);
-			return "redirect:/CorsoFacolta";
-		}
-	}
+//	@RequestMapping(value="/inserimentoCorso", method=RequestMethod.POST)
+//	public String insCorPost(@Valid Corso corso, BindingResult result) {
+//
+//		if (result.hasErrors()) {
+//			System.out.println("Errore");
+//			return "corsiFacoltaForm";
+//
+//		}else {
+//			corsoDao.inserimento(corso);
+//			return "redirect:/CorsoFacolta";
+//		}
+//	}
 
 	@RequestMapping(value="/rimuoviFacoltaCorso/{composedId}", method=RequestMethod.GET)
 	public  String rimCatt(@PathVariable String composedId, ModelMap model) {
@@ -74,13 +74,13 @@ public class ControllerCorsoFacolta {
 		return "redirect:/Facolta/"+facolta.getId();
 	}
 
-	@RequestMapping(value="/rimuoviCorso/{id}", method=RequestMethod.GET)
-	public String rimCorPost(@PathVariable Integer id) {
-
-		Corso corso = corsoDao.getById(id);
-		corsoDao.remove(corso);
-		return "redirect:/CorsoFacolta";
-	}
+//	@RequestMapping(value="/rimuoviCorso/{id}", method=RequestMethod.GET)
+//	public String rimCorPost(@PathVariable Integer id) {
+//
+//		Corso corso = corsoDao.getById(id);
+//		corsoDao.remove(corso);
+//		return "redirect:/CorsoFacolta";
+//	}
 
 	@RequestMapping(value="/inserimentoFacolta", method=RequestMethod.POST)
 	public String insFacPost(@Valid Facolta facolta, BindingResult result, ModelMap model) {

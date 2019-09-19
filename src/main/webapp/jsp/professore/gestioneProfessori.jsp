@@ -30,13 +30,13 @@
 
 						<c:forEach items="${professori}" var="p">
 							<tr>
-								<td>${p.nome}${p.cognome}</td>
+								<td>${p.nome} ${p.cognome}</td>
 								
-								<td><c:if test="${p.account.ruolo.ruolo eq 'RETTORE'}">
+								<td><c:if test="${p.account.ruolo.ruolo eq 'PROFESSORE'}">
 										<a href="${pageContext.request.contextPath}/Professore/Rimuovi/${p.id}">Rimuovi</a>
 
 									</c:if></td>
-								<td><c:if test="${p.account.ruolo.ruolo eq 'RETTORE'}">
+								<td><c:if test="${p.account.ruolo.ruolo eq 'PROFESSORE'}">
 
 										<a href="${pageContext.request.contextPath}/Professore/Promuovi/${p.id}">Promuovi</a>
 

@@ -95,7 +95,13 @@
 		<li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/CorsoFacolta">
           <i class="fas fa-fw fa-table"></i>
-          <span>Corsi e Facolta</span></a>
+          <span>Inserire\Rimuovere Facolta</span></a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/Corso">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Inserire\Rimuovere Corsi</span></a>
       </li>
       
       <li class="nav-item">
