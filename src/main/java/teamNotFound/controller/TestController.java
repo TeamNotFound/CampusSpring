@@ -24,8 +24,9 @@ public class TestController {
 
 	@PostMapping("/testImage")
 	public String testImage(@RequestParam("image") MultipartFile image) throws IOException {
-
-		amazonS3transfer.upload(new PutObjectRequest("campus-bucket", "test-image", convert(image)));
+		File imageFilezed = convert(image);
+		amazonS3transfer.upload(new PutObjectRequest("campus-bucket", "test-image", imageFilezed));
+		imageFilezed.delete();
 		
 		GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest("campus-bucket", "test-image");
 		String url = ((AmazonS3Client) amazonS3transfer.getAmazonS3Client()).generatePresignedUrl(request).toString();
