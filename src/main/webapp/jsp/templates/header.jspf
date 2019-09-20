@@ -169,6 +169,7 @@
 
           <!-- Topbar Search -->
           
+          <sec:authorize access="isAuthenticated()">
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
           		action="${pageContext.request.contextPath}/search" method="get">
           		
@@ -188,7 +189,7 @@
             
           </form>
 
-          <sec:authorize access="isAuthenticated()">
+          
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
