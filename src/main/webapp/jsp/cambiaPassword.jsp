@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="/jsp/templates/header.jspf" %>
 	<!-- Contenuto pagina centrale -->
         <div class="container-fluid">
@@ -16,15 +17,15 @@
 					
                 <!-- INSERIRE CONTENUTO -->
                 
-				<form action="${pageContext.request.contextPath}/CambiaPassword" method="post">
+				<form:form modelAttribute="account" action="${pageContext.request.contextPath}/CambiaPassword" method="post">
 				<label id="oldPassword">Vecchia Password:</label><br>
 				<input type="password" name="oldPassword" id="oldPassword" /><br>
 				
-				<label id="newPassword">nuova Password:</label><br>
+				<label id="newPassword">Nuova Password:</label><br>
 				<input type="password" name="newPassword" id="newPassword" /><br>
 
 				<input class="btn btn-success btn-icon-split" type="submit" value="Cambia Password" />
-				</form>
+				</form:form>
 
 				<!-- CONTENUTO -->
 
