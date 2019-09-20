@@ -5,8 +5,11 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="studenti")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class Studente extends Utente {
 	
 	@ManyToOne
