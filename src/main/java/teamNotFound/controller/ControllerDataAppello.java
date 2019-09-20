@@ -45,6 +45,7 @@ public class ControllerDataAppello {
 			model.addAttribute("dataAppello", new DataAppello());
 			Account a = accountDao.getByUsername(principal.getName());
 			Utente u =a.getUtente();
+			model.addAttribute("account", a);
 			model.addAttribute("cattedre", professoreDao.getByIdWithCorsi(u.getId()).getCattedra());
 			return "/dataAppello/dataAppelloForm";
 		}
