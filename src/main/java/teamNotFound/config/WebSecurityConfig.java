@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/rimuoviCattedra/**").hasRole("RETTORE")
 			
 			.antMatchers("/CorsoFacolta").hasRole("RETTORE")
+			.antMatchers("/Corso").hasRole("RETTORE")
 			.antMatchers("/inserimentoCorso").hasRole("RETTORE")
 			.antMatchers("/rimuoviCorso").hasRole("RETTORE")
 			.antMatchers("/rimuoviCorso/**").hasRole("RETTORE")
