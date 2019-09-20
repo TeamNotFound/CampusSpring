@@ -63,8 +63,8 @@
 							</select> 
 							<input class="btn btn-success btn-icon-split" type="submit" />
 
-						</sec:authorize>
 						</form:form>
+						</sec:authorize>
 					</table>
 
 					<!-- CONTENUTO -->
