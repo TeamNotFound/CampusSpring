@@ -124,7 +124,4 @@
 
   <!-- Custom scripts for all pages-->
   <script src="../Campus/views/templates/dashboard/js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
+<%@ include file="/jsp/templates/footer.jspf" %>
