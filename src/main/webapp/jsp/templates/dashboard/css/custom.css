@@ -32,6 +32,9 @@ table, th, td {
 #logout:hover{
 	color: #fff;
 }
+#loginname{
+	margin-right:10px;
+}
 
 footer.sticky-footer {
     position: fixed;
