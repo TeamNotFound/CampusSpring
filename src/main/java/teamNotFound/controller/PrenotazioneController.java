@@ -1,20 +1,24 @@
 package teamNotFound.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.DataAppelloDao;
 import teamNotFound.daoimpl.FacoltaDao;
 import teamNotFound.daoimpl.PrenotazioneDao;
@@ -38,12 +42,16 @@ public class PrenotazioneController {
 	private FacoltaDao facoltaDao;
 	@Autowired
 	private StudenteDao studenteDao;
+	@Autowired
+	private AccountDao accountDao;
+	@Autowired
+	private SmartValidator validator;
 
 
 	@GetMapping("/Prenotazione/Corso/{id}")
-	public String prenotazioneCorso(@PathVariable Integer id,HttpServletRequest request,Model model) {
-		Account a =(Account) request.getSession().getAttribute("account");
-		int idFacolta = ((Studente) a.getUtente()).getFacolta().getId();
+	public String prenotazioneCorso(@PathVariable Integer id, Model model, Principal principal) {
+		Account account = accountDao.getByUsername(principal.getName());
+		int idFacolta = ((Studente) account.getUtente()).getFacolta().getId();
 
 		List<DataAppello> date = dataAppelloDao.getByFacoltaAndCorso(idFacolta, id);
 
@@ -72,13 +80,13 @@ public class PrenotazioneController {
 	}
 
 	@PostMapping("/Prenotazione/PrenotazioneEsame/{id}")
-	public String prenotazioneEsame(HttpServletRequest request) {
+	public String prenotazioneEsame(Principal principal, @RequestParam("dataPrenotaId") Integer dataPrenotaId) {
 		Prenotazione prenotazione = new Prenotazione();
 
-		Account account =(Account) request.getSession().getAttribute("account");
+		Account account = accountDao.getByUsername(principal.getName());
 		prenotazione.setStudente((Studente) account.getUtente());
 
-		DataAppello dataAppello= dataAppelloDao.getById(Integer.parseInt(request.getParameter("dataPrenotaId")));
+		DataAppello dataAppello= dataAppelloDao.getById(dataPrenotaId);
 		prenotazione.setDataAppello(dataAppello);
 
 		Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -86,7 +94,7 @@ public class PrenotazioneController {
 
 		prenotazioneDao.inserimento(prenotazione);
 
-		return "redirect:/"+request.getContextPath()+"/PrenotazioneVisualizza";
+		return "redirect:/PrenotazioneVisualizza";
 	}
 
 	private List<Corso> getCorsiDaRimuovere(Studente studente){
@@ -104,42 +112,50 @@ public class PrenotazioneController {
 	}
 
 	@GetMapping("/Prenotazione")
-	public String prenotazioneFacolta(HttpServletRequest request,Model model) {
-		Account account =(Account) request.getSession().getAttribute("account");
+	public String prenotazioneFacolta(Model model, Principal principal) {
+		Account account = accountDao.getByUsername(principal.getName());
 		Studente studente = (Studente) account.getUtente();
+		
 		studente = studenteDao.getByIdWithPrenotazioniEsami(studente.getId());
 
-		Facolta f = facoltaDao.getByIdWithCorsi(studente.getFacolta().getId());
+		Facolta facolta = facoltaDao.getByIdWithCorsi(studente.getFacolta().getId());
 
 		List<Corso> corsiDaRimuovere = getCorsiDaRimuovere(studente);
 
 		for(Corso corso : corsiDaRimuovere) {
-			f.getCorsi().remove(corso);
+			facolta.getCorsi().remove(corso);
 		}
-		model.addAttribute("facolta", f);
+		model.addAttribute("facolta", facolta);
 
 		return "prenotazione/prenotazioniForm";
 	}
 
 	@PostMapping("/Prenotazione")
-	public String prenotazioneInserimento(HttpServletRequest request) {
-		Prenotazione p = new Prenotazione();
+	public String prenotazioneInserimento(Principal principal, @RequestParam("dataPrenotaId") Integer dataAppelloId) {
+		Prenotazione prenotazione = new Prenotazione();
 		Date d = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-		p.setDataAppello(dataAppelloDao.getById(Integer.parseInt(request.getParameter("data_appello_id"))));
-		p.setDataPrenotazione(d);
+		prenotazione.setDataAppello(dataAppelloDao.getById(dataAppelloId));
+		prenotazione.setDataPrenotazione(d);
 
-		Account a =(Account) request.getSession().getAttribute("account");
-		p.setStudente((Studente) a.getUtente());
+		Account account = accountDao.getByUsername(principal.getName());
+		prenotazione.setStudente((Studente) account.getUtente());
 
-		prenotazioneDao.inserimento(p);
+		BindingResult result = new BeanPropertyBindingResult(prenotazione, "prenotazione");
+		validator.validate(prenotazione, result);
 		
-		return "redirect:/PrenotazioniEffettuate";
+		if(!result.hasErrors()) {
+			prenotazioneDao.inserimento(prenotazione);
+			return "redirect:/PrenotazioneVisualizza";
+		}else{
+			return "redirect:/";
+		}
+		
 	}
 	
 	@GetMapping("/PrenotazioneVisualizza")
-	public String prenotazioneVisualizza(HttpServletRequest request,Model model) {
-		Account s =(Account) request.getSession().getAttribute("account");
+	public String prenotazioneVisualizza(Model model, Principal principal) {
+		Account s =accountDao.getByUsername(principal.getName());
 
 		Studente st = studenteDao.getByIdWithPrenotazioni(s.getUtente().getId());
 		

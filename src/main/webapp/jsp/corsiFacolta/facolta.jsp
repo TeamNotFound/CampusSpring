@@ -50,22 +50,21 @@
 							</tr>
 						</c:forEach>
 
+
 						<sec:authorize access="hasRole('RETTORE')">
-						
-						
-						<form action="${pageContext.request.contextPath }/corso-facolta" method="post">
+						<form:form action="${pageContext.request.contextPath }/corso-facolta" method="post">
 
-							<input type="hidden" name="facolta" value="${facolta.id}">
+							<input type="hidden" name="facoltaId" value="${facolta.id}">
 
-							<select name="corso">
+							<select name="corsoId">
 								<c:forEach items="${corsi}" var="c">
 									<option value="${c.id}">${c.corso}</option>
 								</c:forEach>
 							</select> 
 							<input class="btn btn-success btn-icon-split" type="submit" />
-						</form>
-						
+
 						</sec:authorize>
+						</form:form>
 					</table>
 
 					<!-- CONTENUTO -->

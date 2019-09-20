@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/rimuoviCattedra/**").hasRole("RETTORE")
 			
 			.antMatchers("/CorsoFacolta").hasRole("RETTORE")
+			.antMatchers("/Corso").hasRole("RETTORE")
 			.antMatchers("/inserimentoCorso").hasRole("RETTORE")
 			.antMatchers("/rimuoviCorso").hasRole("RETTORE")
 			.antMatchers("/rimuoviCorso/**").hasRole("RETTORE")
@@ -68,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/Prenotazione").hasRole("STUDENTE")
 			.antMatchers("/PrenotazioneVisualizza").hasRole("STUDENTE")
 			
-			.antMatchers("/Esami/Data/**").hasRole("STUDENTE")
+			.antMatchers("/Esami/Data/**").hasAnyRole("RETTORE","PROFESSORE")
 			.antMatchers("/Esami/Cattedre").hasAnyRole("RETTORE","PROFESSORE")
 			.antMatchers("/Esami/Cattedra/**").hasAnyRole("RETTORE","PROFESSORE")
 			.antMatchers("/Esami/Visualizza").hasRole("STUDENTE")

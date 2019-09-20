@@ -95,7 +95,13 @@
 		<li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/CorsoFacolta">
           <i class="fas fa-fw fa-table"></i>
-          <span>Corsi e Facolta</span></a>
+          <span>Inserire\Rimuovere Facolta</span></a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/Corso">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Inserire\Rimuovere Corsi</span></a>
       </li>
       
       <li class="nav-item">
@@ -207,11 +213,12 @@
                 
                         
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+                <form:form action="${pageContext.request.contextPath}/logout" method="post">
+                <button class="dropdown-item">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
-                </a>
-                
+                </button>
+                </form:form>
               </div>
             </li>
 
