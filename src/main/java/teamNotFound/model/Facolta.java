@@ -1,5 +1,6 @@
 package teamNotFound.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,9 +15,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="facolta")
-public class Facolta {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+public class Facolta implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -24,7 +30,7 @@ public class Facolta {
 	@Column
 	private String facolta;
 	
-	@OneToMany(mappedBy="facolta", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="facolta")
 	private Set<Studente> studenti;
 	
 	@OneToMany(mappedBy = "facolta")

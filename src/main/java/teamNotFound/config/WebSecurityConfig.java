@@ -53,8 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/rimuoviFacolta/**").hasRole("RETTORE")
 			.antMatchers("/visualizza").hasRole("RETTORE")
 			.antMatchers("/corso-facolta").hasRole("RETTORE")
-			.antMatchers("/Facolta").hasRole("RETTORE")
-			.antMatchers("/Facolta/**").hasRole("RETTORE")
+			.antMatchers("/Facolta/**").authenticated()
 			.antMatchers("/Ruolo").hasRole("RETTORE")
 			
 			.antMatchers("/GestioneProfessori").hasRole("RETTORE")

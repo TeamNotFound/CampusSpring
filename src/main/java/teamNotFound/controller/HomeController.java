@@ -1,5 +1,6 @@
 package teamNotFound.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,8 @@ public class HomeController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request) {
+		request.getSession().setAttribute("facoltaList", facoltaDao.getAll());
 		return "session/login";
 	}
 }

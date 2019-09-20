@@ -1,8 +1,10 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 <title>Aggiungi corsi a Facoltà</title>
 </head>
 <%@ include file="/jsp/templates/header.jspf" %>
+
 
 	<!-- Contenuto pagina centrale -->
         <div class="container-fluid">
@@ -25,21 +27,31 @@
 						<tr>
 							<th>Corso</th>
 							<th>Professore</th>
+							
+							<sec:authorize access="hasRole('RETTORE')">
 							<th>Rimuovi corso</th>
+							
 							<th>Libera cattedra</th>
+							</sec:authorize>				
+							
 						</tr>
 						<c:forEach items="${facolta.corsi}" var="cor">
 							<tr>
 								<td>${cor.corso }</td>
 								<td>${cattedre.get(cor.id).professore.fullName}</td>
+								<sec:authorize access="hasRole('RETTORE')">
 								<td><a
 									href="${pageContext.request.contextPath}/rimuoviFacoltaCorso/${facolta.id}-${cor.id}">Rimuovi</a></td>
+									
 								<td><a
 									href="${pageContext.request.contextPath}/rimuoviCattedra/${cattedre.get(cor.id).corso.id}-${cattedre.get(cor.id).professore.id}-${cattedre.get(cor.id).facolta.id}">Libera
 										cattedra</a></td>
+								</sec:authorize>
 							</tr>
 						</c:forEach>
 
+
+						<sec:authorize access="hasRole('RETTORE')">
 						<form:form action="${pageContext.request.contextPath }/corso-facolta" method="post">
 
 							<input type="hidden" name="facoltaId" value="${facolta.id}">
@@ -50,7 +62,9 @@
 								</c:forEach>
 							</select> 
 							<input class="btn btn-success btn-icon-split" type="submit" />
+
 						</form:form>
+						</sec:authorize>
 					</table>
 
 					<!-- CONTENUTO -->

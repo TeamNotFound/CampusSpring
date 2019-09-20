@@ -12,6 +12,12 @@ table, th, td {
     margin: 2%;
 }
 
+.btn-icon-split .icon {
+    background: rgba(0,0,0,.15);
+    display: inline-block;
+    padding: .75rem .75rem !important;
+}
+
 #logout{
 	border: none; 
 	font-family: 'Nunito'; 
@@ -30,3 +36,13 @@ table, th, td {
 	margin-right:10px;
 }
 
+footer.sticky-footer {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.sidebar {
+    z-index: 1;
+}

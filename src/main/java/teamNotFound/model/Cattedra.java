@@ -5,9 +5,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.springframework.stereotype.Repository;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Repository
 @Entity
 @Table(name="professori_corsi")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class Cattedra {
 	@Embeddable
 	protected static class Id implements Serializable{

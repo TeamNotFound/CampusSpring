@@ -95,13 +95,13 @@
 		<li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/CorsoFacolta">
           <i class="fas fa-fw fa-table"></i>
-          <span>Inserire\Rimuovere Facolta</span></a>
+          <span>Gestione Facolta</span></a>
       </li>
       
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/Corso">
           <i class="fas fa-fw fa-table"></i>
-          <span>Inserire\Rimuovere Corsi</span></a>
+          <span>Gestione Corsi</span></a>
       </li>
       
       <li class="nav-item">
@@ -168,18 +168,25 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          
+          <sec:authorize access="isAuthenticated()">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+          		action="${pageContext.request.contextPath}/search" method="get">
+          		
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input list="searchFacolta" type="text" name="facolta" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <datalist id="searchFacolta">
+              </datalist>
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
             </div>
+            
           </form>
 
-          <sec:authorize access="isAuthenticated()">
+          
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -217,3 +224,6 @@
 
         </nav>
         <!-- End of Topbar -->
+        <script>var context = "${pageContext.request.contextPath}"</script>
+        <script src="${pageContext.request.contextPath}/jsp/templates/dashboard/js/searchSuggestions.js">
+        </script>
