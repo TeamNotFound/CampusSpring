@@ -95,13 +95,13 @@
 		<li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/CorsoFacolta">
           <i class="fas fa-fw fa-table"></i>
-          <span>Inserire\Rimuovere Facolta</span></a>
+          <span>Gestione Facolta</span></a>
       </li>
       
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/Corso">
           <i class="fas fa-fw fa-table"></i>
-          <span>Inserire\Rimuovere Corsi</span></a>
+          <span>Gestione Corsi</span></a>
       </li>
       
       <li class="nav-item">
@@ -176,9 +176,6 @@
             <div class="input-group">
               <input list="searchFacolta" type="text" name="facolta" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <datalist id="searchFacolta">
-              	<c:forEach items="${sessionScope.facoltaList}" var="optionFacolta">
-              		<option value="${optionFacolta.facolta}">
-              	</c:forEach>
               </datalist>
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
@@ -228,3 +225,6 @@
 
         </nav>
         <!-- End of Topbar -->
+        <script>var context = "${pageContext.request.contextPath}"</script>
+        <script src="${pageContext.request.contextPath}/jsp/templates/dashboard/js/searchSuggestions.js">
+        </script>
