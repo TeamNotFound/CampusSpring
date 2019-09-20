@@ -34,14 +34,14 @@
 					<hr>
 
 					<h6>Prenotati</h6>
-					<form
-						action="/Campus/Prenotazione/PrenotazioneEsame/${ dataPrenotata.id}"
+					<form:form
+						action="${pageContext.request.contextPath}/Prenotazione"
 						method="post">
 						<input type="hidden" name="dataPrenotaId"
 							value=${dataPrenotata.id }>
 							
 							<input class="btn btn-success btn-icon-split" type="submit" value="Invia"/>
-					</form>
+					</form:form>
 					<!-- CONTENUTO -->
 
 				</div>

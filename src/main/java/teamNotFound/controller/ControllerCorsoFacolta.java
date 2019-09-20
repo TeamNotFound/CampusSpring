@@ -60,13 +60,26 @@ public class ControllerCorsoFacolta {
 		}
 	}
 
+	@RequestMapping(value="/rimuoviFacoltaCorso/{composedId}", method=RequestMethod.GET)
+	public  String rimCatt(@PathVariable String composedId, ModelMap model) {
+		String ids[] = composedId.split("-");
+		System.out.println(ids[0]);
+		System.out.println(ids[1]);
+		
+		Facolta facolta = facoltaDao.getByIdWithCorsi(Integer.parseInt(ids[0]));
+		Corso corso = corsoDao.getById(Integer.parseInt(ids[1]));
+		
+		facolta.removeCorso(corso);
+		facoltaDao.update(facolta);
+		return "redirect:/Facolta/"+facolta.getId();
+	}
 
-	@RequestMapping(value="/rimuoviCorso/{composedId}", method=RequestMethod.POST)
-	public String rimCorPost( @RequestParam Integer corsoId, @RequestParam Integer facoltaId, @RequestParam Integer profId) {
+	@RequestMapping(value="/rimuoviCorso/{id}", method=RequestMethod.GET)
+	public String rimCorPost(@PathVariable Integer id) {
 
-		Corso corso = corsoDao.getById(corsoId);
+		Corso corso = corsoDao.getById(id);
 		corsoDao.remove(corso);
-		return "redirect:/";
+		return "redirect:/CorsoFacolta";
 	}
 
 	@RequestMapping(value="/inserimentoFacolta", method=RequestMethod.POST)
@@ -82,12 +95,12 @@ public class ControllerCorsoFacolta {
 	}
 
 
-	@RequestMapping(value="/rimuoviFacolta/{composedId}", method=RequestMethod.POST)
-	public String rimFacPost( @PathVariable String composedId, @RequestParam Integer facoltaId) {
+	@RequestMapping(value="/rimuoviFacolta/{id}", method=RequestMethod.GET)
+	public String rimFacPost( @PathVariable Integer id) {
 
-		Facolta facolta = facoltaDao.getById(facoltaId);
+		Facolta facolta = facoltaDao.getById(id);
 		facoltaDao.remove(facolta);
-		return "redirect:/";
+		return "redirect:/CorsoFacolta";
 	}
 	
 	@RequestMapping(value="/visualizza", method=RequestMethod.POST)
@@ -105,6 +118,8 @@ public class ControllerCorsoFacolta {
 
 	@PostMapping("/corso-facolta")
 	public String addCorsoFacolta (@RequestParam Integer corsoId, @RequestParam Integer facoltaId) {
+		System.out.println("Entered");
+		
 		Facolta facolta = facoltaDao.getByIdWithCorsi(facoltaId);
 		Corso corso = corsoDao.getById(corsoId);
 		facolta.addCorso(corso);
