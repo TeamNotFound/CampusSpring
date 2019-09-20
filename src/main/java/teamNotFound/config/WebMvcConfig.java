@@ -1,31 +1,56 @@
 package teamNotFound.config;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
-//SICCOME E' UNA PAGINA CONFIGURAZIONE VIENE MAPPATA CON CONFIGURATION
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+
 @Configuration
 public class WebMvcConfig {
-	//IN QUESTA CLASSE CREIAMO UNIISTANZA DELL'OGGETTO BCryptPasswordEncoder
-	//L'OGGETTO VERRA' ISTANZIATO TRAMITE @BEAN QUINDI AGGIUNTI NEL IoC CONTAINER E RICHIAMATO QUANDO UTILE 
+
 	@Bean
-	//Utilizzeremo questo metodo nel momento in cui vorremo decriptare la password criptata nel nostro database
-	//Es. Nel dao ci sarà un metodo di inserimento, che istanzierà un oggetto di tipo BCryptPasswordEncoder
-	//al quale andremo a specificare l'operazione di codifica.
-	
-	//RICORDA: Per rendere possibile la criptazione della password all'interno del database è necessario specificare una
-	//lunghezza pari a 60 caratteri, questo perchè il metodo generà una password casuale di almeno 60 caratteri.
-	
-	//Metodo per decriptare la password.
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
 	}
-	
+
 	@Bean
 	public ModelMapper modelMapper() {
-	    return new ModelMapper();
+		return new ModelMapper();
+	}
+
+	@Bean
+	public AmazonS3 amazonS3client(AWSCredentialsProvider provider,
+			@Value("cloud.aws.region.static") String region) {
+
+		return AmazonS3ClientBuilder.standard()
+				.withCredentials(provider)
+				.withRegion(region)
+				.build();
+	}
+	
+	@Autowired
+	private AmazonS3 amazonS3;
+	
+	@Bean
+	public TransferManager manager() {
+		return TransferManagerBuilder.standard()
+				  .withS3Client(amazonS3)
+				  .withMultipartUploadThreshold((long) (5 * 1024 * 1025))
+				  .build();
+	}
+
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
 	}
 }
