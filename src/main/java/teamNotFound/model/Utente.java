@@ -47,7 +47,7 @@ public abstract class Utente {
     @Column
     private boolean uomo;
     
-    @Column(nullable = true)
+    @Column(columnDefinition="varchar(1000)")
     private String imageUrl;
     
     @OneToOne(cascade = CascadeType.ALL)
