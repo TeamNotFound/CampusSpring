@@ -32,14 +32,42 @@ table, th, td {
 #logout:hover{
 	color: #fff;
 }
+#loginname{
+	margin-right:10px;
+}
 
 footer.sticky-footer {
-    position: relative;
+    position: fixed;
     bottom: 0;
     right: 0;
-    left: 0;
+    left: 225px;
 }
 
 .sidebar {
     z-index: 1;
+}
+
+#welcome-img {
+    width: 500;
+    height: 500px;
+    background-image: url("https://lh3.googleusercontent.com/0anBMFId2GHSRYtXPWHlVe-ayrnYH596cDXSOOQHCtItyPwhkNofpp8Wf-QanPRq95sGfe4-f_YZJJwUX1bGQ-b1E2-FblTcXc_tJnUv4YQuj03mOC-auZcGh3A4sQNaL_oOhNNoZJjr14aGY3N-DuRCLnb0zz_MjcFqnf6qT85nDNRJhMyBNeRpG2pdVe8ZI-L09_EQV2zcmV0KWwKBYMD10VF1C4Lhm00p53WKn9LF9LxbaYa_PEKWVQqQP5hRnMQD8E5vHzvMgBMleutgKS1T5CXWtZN-XLIDg6KgS-nkMSk7B2EofRSwgKDi-Zw0AI1wmj_QINhEyYmSLMCZJ1SSINSVA0wJqWYc-lKSIpE4fILo-0JwL59P-OmEAXnII5VwzYnsIraYtEgLpQgMxXFjJ-Lq0COcc8Eyok-zTTZPu10EuGrkhR-WfReSUA1N1xNZX26PhiPWq4sEStpc2mPY_QlcQDLVbuyRXTak62-GhV5KVjuvGBwUNawG4wTyt4HrsC2nWiOGvodrdSrygtnCiMT176fGobwCwbtUcwPU894GX7nHmx2Au-IKyYJf782TIKATsJYaIQfKmkVxtfu7hkSlzXgFIiuVjdwp0a0UXq1eVnW9UX9Uhkvx1NkbKE48IYUMhWgzclbqjrYSFqanfjGdet7qf1V2fHNrniGdvpnl_LRasvE=w1152-h1532-no");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 15px solid whitesmoke;
+}
+
+#welcome-text {
+    font-family: 'Nunito';
+    font-size: 100px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: white;
+    padding: 50px;
 }
