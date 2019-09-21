@@ -34,16 +34,15 @@ public class AmazonUploadUtil {
 		String generatedKey = getUniqueKey();
 		File imageFilezed = convert(file);
 
-		amazonS3transfer.upload(new PutObjectRequest("campus-bucket", generatedKey, imageFilezed)).waitForUploadResult();
+		amazonS3transfer.upload(new PutObjectRequest(bucketName, generatedKey, imageFilezed)).waitForUploadResult();
 
 		imageFilezed.delete();
 
-		System.out.println("\n\n"+bucketName+"\n\n");
 		return generatedKey;
 	}
 
 	public String generateUrl(String key) {
-		GeneratePresignedUrlRequest urlRequest = new GeneratePresignedUrlRequest("campus-bucket", key);
+		GeneratePresignedUrlRequest urlRequest = new GeneratePresignedUrlRequest(bucketName, key);
 		return ((AmazonS3Client) amazonS3transfer.getAmazonS3Client()).generatePresignedUrl(urlRequest).toString();
 	}
 

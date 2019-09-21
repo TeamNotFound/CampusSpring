@@ -57,11 +57,6 @@
   <script src="${pageContext.request.contextPath}/jsp/templates/dashboard/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/jsp/templates/dashboard/js/demo/chart-pie-demo.js"></script>
 
-  <sec:authorize access="isAuthenticated()">
-      <script>var context = "${pageContext.request.contextPath}"</script>
-      <script src="${pageContext.request.contextPath}/jsp/templates/dashboard/js/searchSuggestions.js">
-  </sec:authorize>
-
 </body>
 
 </html>

@@ -2,14 +2,14 @@ package teamNotFound.controller;
 
 import java.security.Principal;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +31,9 @@ public class ProfessoreController {
 	@Autowired
 	private RuoloDao ruoloDao;
 	@Autowired
-	AccountDao ad;
+	private AccountDao accountDao;
+	@Autowired
+	private SmartValidator validator;
 
 	@GetMapping("/GestioneProfessori")
 	public String gestioneProfessori(Model model) {
@@ -46,7 +48,12 @@ public class ProfessoreController {
 	}
 
 	@PostMapping("/InserimentoProfessore")
-	public String saveProfessore(@Valid Professore professore, BindingResult result) {
+	public String saveProfessore(Professore professore, BindingResult result,
+									@Value("${profile.pic.default}") String defaultPic) {
+		
+		professore.setImageGeneratedName(defaultPic);
+		validator.validate(professore, result);
+		
 		if(result.hasErrors()) {
 			return "professore/profForm";
 		}else {
@@ -66,13 +73,13 @@ public class ProfessoreController {
 		Ruolo rett = ruoloDao.getById(1);
 		Ruolo prof = ruoloDao.getById(2);
 		
-		Account a = ad.getById(professoreDao.getById(id).getAccount().getId());
+		Account a = accountDao.getById(professoreDao.getById(id).getAccount().getId());
 		a.setRuolo(rett);
-		ad.update(a);
+		accountDao.update(a);
 		
-		Account rettore = ad.getByUsername(principal.getName());
+		Account rettore = accountDao.getByUsername(principal.getName());
 		rettore.setRuolo(prof);
-		ad.update(rettore);
+		accountDao.update(rettore);
 		
 		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
 		

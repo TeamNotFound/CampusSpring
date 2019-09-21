@@ -1,5 +1,7 @@
 <%@ include file="/jsp/templates/header.jspf"%>
 
+<img src="${profilePic}" alt="Image not found"></img>
+
 <div class="container-fluid">
 	<form:form action="${pageContext.request.contextPath}/ProfilePic"
 		method="post" enctype="multipart/form-data">
