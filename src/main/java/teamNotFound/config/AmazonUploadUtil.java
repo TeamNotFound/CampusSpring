@@ -28,12 +28,17 @@ public class AmazonUploadUtil {
 	public String upload(MultipartFile file) throws IOException {
 		String generatedKey = getUniqueKey();
 		File imageFilezed = convert(file);
+		try {
 		amazonS3transfer.upload(new PutObjectRequest("campus-bucket", generatedKey, imageFilezed));
 		
 		GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest("campus-bucket", generatedKey);
 		String url = ((AmazonS3Client) amazonS3transfer.getAmazonS3Client()).generatePresignedUrl(request).toString();
 		
 		return url;
+		
+		} finally {
+			imageFilezed.delete();
+		}
 	}
 
 	private File convert(MultipartFile file) throws IOException {
