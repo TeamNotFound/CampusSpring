@@ -4,7 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -99,8 +104,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/login")
-	public String login(HttpServletRequest request) {
-		request.getSession().setAttribute("facoltaList", facoltaDao.getAll());
+	public String login() {
 		return "session/login";
 	}
 }

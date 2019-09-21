@@ -199,8 +199,8 @@
             <li class="nav-item dropdown no-arrow">
                   
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> ${account.username}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><sec:authentication property="name"/></span>
+                <img class="img-profile rounded-circle" src="${profilePic}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -236,4 +236,4 @@
         <!-- End of Topbar -->
         <script>var context = "${pageContext.request.contextPath}"</script>
         <script src="${pageContext.request.contextPath}/jsp/templates/dashboard/js/searchSuggestions.js">
-        </script>
+    </script>

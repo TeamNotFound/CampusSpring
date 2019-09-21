@@ -24,15 +24,6 @@
                 </div>
                 <div class="card-body">
                   <p>In questa pagina ci sarà il messaggio di benvenuto</p>
-                  
-                  <!-- Eliminalo -->
-                  <form:form action="${pageContext.request.contextPath}/testImage" method="post"
-                  			 enctype="multipart/form-data">
-                  	<input type="file" name="image" />
-                  	<input type="submit" />
-                  </form:form>
-                  
-                  <img alt="not found" src="https://campus-bucket.s3.amazonaws.com/test-image">
                 </div>
               </div>
           </div>

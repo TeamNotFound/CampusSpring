@@ -48,7 +48,7 @@ public abstract class Utente {
     private boolean uomo;
     
     @Column(columnDefinition="varchar(1000)")
-    private String imageUrl;
+    private String imageGeneratedName;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
@@ -96,11 +96,11 @@ public abstract class Utente {
 	public void setLuogoNascita(String luogoNascita) {
 		this.luogoNascita = luogoNascita;
 	}	
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImageGeneratedName() {
+		return imageGeneratedName;
 	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImageGeneratedName(String imageUrl) {
+		this.imageGeneratedName = imageUrl;
 	}
 	public String getCodiceFiscale() {
 		return codiceFiscale;

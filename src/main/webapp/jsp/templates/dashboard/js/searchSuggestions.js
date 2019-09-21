@@ -6,6 +6,8 @@ const addFacoltaToDatalist = (facoltaName) => {
     facoltaDatalist.appendChild(option);
 }
 
+console.log("Inside search suggestions")
+
 fetch(context+'/api/facolta')
     .then(response => {
         return response.json();
@@ -16,3 +18,4 @@ fetch(context+'/api/facolta')
         })
     })
     .catch(err => console.log("error: "+ err))
+
