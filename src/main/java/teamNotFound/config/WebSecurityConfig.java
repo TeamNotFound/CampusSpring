@@ -18,10 +18,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private OnAuthenticationSuccessImpl authenticationSuccessHandler;
 
 	@Autowired
 	private MyAppUserDetailsService myAppUserDetailsService;
-	private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);	
+	private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
+	
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -74,10 +77,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/Esami/Cattedra/**").hasAnyRole("RETTORE","PROFESSORE")
 			.antMatchers("/Esami/Visualizza").hasRole("STUDENTE")
 			
+			.antMatchers("/ProfilePic").authenticated()
+			
 			.antMatchers("/*.js").permitAll()
 			.antMatchers("/webapp/**").permitAll()
 			.antMatchers("/**").permitAll()
-		.and().formLogin() 
+		.and().formLogin().successHandler(authenticationSuccessHandler) 
 			.loginPage("/login")
 			.loginProcessingUrl("/login")
             .permitAll()

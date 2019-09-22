@@ -1,9 +1,9 @@
 package teamNotFound.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,8 +56,15 @@ public class HomeController {
 		return "firstAccess";
 	}
 	
-	@RequestMapping(value="/FirstAccess", method= RequestMethod.POST)
-	public String firstaccess(@Valid Professore professore, BindingResult result) {
+	@PostMapping("/FirstAccess")
+	public String firstaccess(Professore professore, BindingResult result,
+								@Value("${profile.pic.default}") String defaultPic) {
+		
+		System.out.println("\n\n\n\n"+defaultPic+"\n\n\n");
+		
+		professore.setImageGeneratedName(defaultPic);
+		validator.validate(professore, result);
+		
 		if(result.hasErrors()) {
 			return "firstAccess";
 		}else {
@@ -79,8 +86,11 @@ public class HomeController {
 	}
 
 	@PostMapping("/Studente")
-	public String inserimentoStudente(Studente studente, BindingResult result,Model model, @RequestParam("selFacolta") Integer facoltaId) {
+	public String inserimentoStudente(Studente studente, BindingResult result,Model model, 
+									 @RequestParam("selFacolta") Integer facoltaId,
+									 @Value("${profile.pic.default}") String defaultPic){
 		
+		studente.setImageGeneratedName(defaultPic);
 		studente.setFacolta(facoltaDao.getById(facoltaId));
 		validator.validate(studente, result);
 		
@@ -99,8 +109,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/login")
-	public String login(HttpServletRequest request) {
-		request.getSession().setAttribute("facoltaList", facoltaDao.getAll());
+	public String login() {
 		return "session/login";
 	}
 }
