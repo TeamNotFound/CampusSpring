@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import teamNotFound.daoimpl.AccountDao;
@@ -19,6 +20,8 @@ public class OnAuthenticationSuccessImpl implements AuthenticationSuccessHandler
 	private AccountDao accountDao;
 	@Autowired
 	private AmazonUploadUtil amazonUtil;
+	
+	SavedRequestAwareAuthenticationSuccessHandler auth;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -28,8 +31,7 @@ public class OnAuthenticationSuccessImpl implements AuthenticationSuccessHandler
 		
 		request.getSession().setAttribute("profilePic", amazonUtil.generateUrl(generatedKey));
 		
-		System.out.println(request.getHeader("referer"));
-		response.sendRedirect("/");
+		response.sendRedirect(request.getContextPath());
 	}
 
 }
