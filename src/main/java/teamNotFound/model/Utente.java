@@ -2,12 +2,20 @@ package teamNotFound.model;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.TableGenerator;
 import javax.validation.Valid;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,7 +33,6 @@ public abstract class Utente {
 	@Column
 	@NotEmpty(message="Inserire nome")
 	private String nome;
-	
 	
 	@Column
 	@NotEmpty(message="Inserire cognome")
@@ -47,12 +54,13 @@ public abstract class Utente {
     @Column
     private boolean uomo;
     
+    @Column
+    private String imageGeneratedName;
+    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     @Valid
     private Account account;
-    
-    
     
 	public Account getAccount() {
 		return account;
@@ -92,6 +100,12 @@ public abstract class Utente {
 	}
 	public void setLuogoNascita(String luogoNascita) {
 		this.luogoNascita = luogoNascita;
+	}	
+	public String getImageGeneratedName() {
+		return imageGeneratedName;
+	}
+	public void setImageGeneratedName(String imageUrl) {
+		this.imageGeneratedName = imageUrl;
 	}
 	public String getCodiceFiscale() {
 		return codiceFiscale;
