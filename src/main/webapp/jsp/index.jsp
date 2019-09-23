@@ -28,7 +28,6 @@
                 </div>
                 
                 <div id="welcome-text" class="card-body">
-                  <p>Willkommen</p>
                   <h1>Il Team Not Found<span style="font-size:15px; vertical-align: super">®</span> vi dà il benvenuto</h1>
                 </div>
               </div>
