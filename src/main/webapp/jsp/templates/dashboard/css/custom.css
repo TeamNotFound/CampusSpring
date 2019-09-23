@@ -71,3 +71,8 @@ footer.sticky-footer {
     background-color: white;
     padding: 50px;
 }
+img.thumbnail{
+	width:20%;
+	height:27%;
+	margin-bottom:50px;
+}
