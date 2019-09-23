@@ -11,8 +11,8 @@
 
 </div>
 <c:if test="${error!=null}">
-<div style="color: red">
-    <br>&nbsp;&nbsp;&nbsp;ERRORE! Carica una foto più piccola di 128KB!
+<div id="errorsize">
+    ERRORE! Carica una foto più piccola di 128KB!
 </div>
 </c:if>
 <%@ include file="/jsp/templates/footer.jspf"%>
