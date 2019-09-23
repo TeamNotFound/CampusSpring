@@ -79,6 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			
 			.antMatchers("/ProfilePic").authenticated()
 			
+			.antMatchers("/CambiaPassword").authenticated()
+			
 			.antMatchers("/*.js").permitAll()
 			.antMatchers("/webapp/**").permitAll()
 			.antMatchers("/**").permitAll()
