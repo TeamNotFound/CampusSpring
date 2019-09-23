@@ -3,10 +3,16 @@ package teamNotFound.config;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +23,10 @@ import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
 
+import teamNotFound.dao.CRUDInterface;
 import teamNotFound.daoimpl.UniqueS3KeyDao;
 import teamNotFound.model.UniqueS3Key;
+import teamNotFound.model.Utente;
 
 @Component
 public class AmazonUploadUtil {
@@ -30,15 +38,14 @@ public class AmazonUploadUtil {
 	@Value("${app.awsServices.bucketName}")
 	private String bucketName;
 
-	public String upload(MultipartFile file) throws IOException, AmazonServiceException, AmazonClientException, InterruptedException {
+	@Async
+	public Future<String> upload(File imageFilezed) throws IOException, AmazonServiceException, AmazonClientException, InterruptedException {
 		String generatedKey = getUniqueKey();
-		File imageFilezed = convert(file);
 
 		amazonS3transfer.upload(new PutObjectRequest(bucketName, generatedKey, imageFilezed)).waitForUploadResult();
-
 		imageFilezed.delete();
 
-		return generatedKey;
+		return new AsyncResult<String>(generatedKey);
 	}
 
 	public String generateUrl(String key) {
@@ -46,12 +53,17 @@ public class AmazonUploadUtil {
 		return ((AmazonS3Client) amazonS3transfer.getAmazonS3Client()).generatePresignedUrl(urlRequest).toString();
 	}
 
-	private File convert(MultipartFile file) throws IOException {
+	public File convert(MultipartFile file) throws IOException {
 		File convFile = new File(file.getOriginalFilename());
+		convFile.createNewFile();
 
 		FileOutputStream fos = new FileOutputStream(convFile);
+
+		System.out.println("Not written: "+file.getName());
 		fos.write(file.getBytes());
+		System.out.println("Written");
 		fos.close();
+		
 		return convFile;
 	}
 
@@ -64,5 +76,23 @@ public class AmazonUploadUtil {
 		uniqueKeyDao.inserimento(new UniqueS3Key(generatedKey));
 
 		return generatedKey;
+	}
+
+	@Async
+	public void setImageToUserAndSession(Utente utente, CRUDInterface crud, HttpSession session, Future<String> url) {
+		boolean notDone = true;
+		while(notDone) {
+			try {
+				if(url.isDone()) {
+					notDone = false;
+					session.setAttribute("profilePic", generateUrl(url.get()));
+				}
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
