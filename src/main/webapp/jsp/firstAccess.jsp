@@ -98,12 +98,12 @@
                   	<form:errors path="account.username"/>
                   </div>
                   <div class="col-sm-6">
-                    <form:input  class="form-control form-control-user" id="password" path="account.password" placeholder="Password"/>
+                    <form:password  class="form-control form-control-user" id="password" path="account.password" placeholder="Password"/>
                   	<form:errors path="account.password"/>
                   </div>
                   
                 </div>
-              <input class="btn btn-success btn-icon-split" type="submit" />
+              <input class="btn btn-success btn-icon-split" type="submit" value="Registrati"/>
 
               </form:form>
               
