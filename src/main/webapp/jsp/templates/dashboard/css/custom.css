@@ -76,3 +76,9 @@ img.thumbnail{
 	height:27%;
 	margin-bottom:50px;
 }
+#errorsize{
+	font-family: 'Nunito'; 
+	font-size:20px;
+	color: rgba(255, 0, 0, 0.8);
+	margin:15px 0px 0px 22px;
+}
