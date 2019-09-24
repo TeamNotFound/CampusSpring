@@ -86,6 +86,9 @@ public class AmazonUploadUtil {
 				if(url.isDone()) {
 					notDone = false;
 					session.setAttribute("profilePic", generateUrl(url.get()));
+					
+					utente.setImageGeneratedName(url.get());
+					crud.update(utente);
 				}
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
