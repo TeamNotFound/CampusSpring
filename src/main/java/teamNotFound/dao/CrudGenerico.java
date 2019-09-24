@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
-
-import teamNotFound.model.Professore;
 @Transactional
 public abstract class CrudGenerico<T,K> implements CRUDInterface<T, K>{
 	

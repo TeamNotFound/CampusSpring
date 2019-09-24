@@ -41,7 +41,7 @@ public class ChangeImageController {
 	}
 
 	@PostMapping("/ProfilePic")
-	public String changePic(HttpSession session ,@RequestParam("image") MultipartFile image, Principal principal) {
+	public String changePic(HttpSession session, @RequestParam("image") MultipartFile image, Principal principal) {
 		String generatedKey;
 
 		try {
