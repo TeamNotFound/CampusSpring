@@ -27,6 +27,7 @@ import teamNotFound.model.Utente;
 
 @Controller
 public class ControllerDataAppello {
+		
 		@Autowired
 		private DataAppelloDao dataAppelloDao;
 		@Autowired
@@ -49,6 +50,7 @@ public class ControllerDataAppello {
 			model.addAttribute("cattedre", professoreDao.getByIdWithCorsi(u.getId()).getCattedra());
 			return "/dataAppello/dataAppelloForm";
 		}
+		
 		
 		@PostMapping(value="/AppelloInserimento")
 		public String InserimentoAppello(@RequestParam("dataAppello") String date, Principal principal, @RequestParam("cattedra") String id) {

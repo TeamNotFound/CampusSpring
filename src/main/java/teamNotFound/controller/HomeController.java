@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import teamNotFound.batch.itemImplementation.DataAppelloProcessor;
+import teamNotFound.batch.itemImplementation.DataAppelloReader;
+import teamNotFound.batch.itemImplementation.DataAppelloWriter;
 import teamNotFound.daoimpl.FacoltaDao;
 import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.daoimpl.RuoloDao;
@@ -41,7 +44,14 @@ public class HomeController {
 	public String index(ModelMap model) {
 		if(professoreDao.getAll().isEmpty()) {
 			model.addAttribute("professore", new Professore());
+			DataAppelloReader dar = new DataAppelloReader();
+			System.out.println(dar);
+			DataAppelloProcessor dap = new DataAppelloProcessor();
+			System.out.println(dap);
+			DataAppelloWriter daw = new DataAppelloWriter();
+			System.out.println(daw);
 			return "redirect:/FirstAccess";
+			
 		}
 		else {
 			return "index";
