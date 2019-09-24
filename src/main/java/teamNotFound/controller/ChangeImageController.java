@@ -1,7 +1,9 @@
 package teamNotFound.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.concurrent.Future;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.AmazonClientException;
 
 import teamNotFound.config.AmazonUploadUtil;
+import teamNotFound.dao.CRUDInterface;
 import teamNotFound.daoimpl.AccountDao;
 import teamNotFound.daoimpl.ProfessoreDao;
 import teamNotFound.daoimpl.StudenteDao;
 import teamNotFound.model.Account;
-import teamNotFound.model.Professore;
-import teamNotFound.model.Studente;
 import teamNotFound.model.Utente;
 
 @Controller
@@ -41,11 +42,13 @@ public class ChangeImageController {
 	}
 
 	@PostMapping("/ProfilePic")
-	public String changePic(HttpSession session, @RequestParam("image") MultipartFile image, Principal principal) {
-		String generatedKey;
+
+	public String changePic(HttpSession session ,@RequestParam("image") MultipartFile image, Principal principal) {
+		Future<String> generatedKey;
 
 		try {
-			generatedKey = amazonUtil.upload(image);
+			File imageFilezed = amazonUtil.convert(image);
+			generatedKey = amazonUtil.upload(imageFilezed);
 		} catch (AmazonClientException | InterruptedException | IOException e) {
 			e.printStackTrace();
 			return "redirect:/profilePicForm?error";
@@ -55,17 +58,16 @@ public class ChangeImageController {
 		Account account = accountDao.getByUsername(principal.getName());
 		Utente utente = account.getUtente();
 
-		utente.setImageGeneratedName(generatedKey);
-
+		CRUDInterface crud;
 		if(account.getRuolo().getRuolo().equals("PROFESSORE") || 
 				account.getRuolo().getRuolo().equals("RETTORE")) {
-			professoreDao.update((Professore) utente);
+			crud = professoreDao;
 		} else {
-			studenteDao.update((Studente) utente);
+			crud = studenteDao;
 		}
 
-		session.setAttribute("profilePic", amazonUtil.generateUrl(generatedKey));
-
+		amazonUtil.setImageToUserAndSession(utente, crud, session, generatedKey);
+		
 		return "redirect:/";
 	}
 }
